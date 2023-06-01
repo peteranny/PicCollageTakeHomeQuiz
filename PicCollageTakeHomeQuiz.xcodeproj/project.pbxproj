@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100CE7D70E023ECE1B2B37B3 /* Pods_PicCollageTakeHomeQuiz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6F8502FCFCEBEEB48C3981 /* Pods_PicCollageTakeHomeQuiz.framework */; };
+		9E74D9EAB02469BA638E6EAC /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E17BF1088E02C8668FBDB0E /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework */; };
 		E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25662A284F95006F6CD0 /* AppDelegate.swift */; };
 		E3FF256B2A284F95006F6CD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* ViewController.swift */; };
 		E3FF25702A284F96006F6CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FF256F2A284F96006F6CD0 /* Assets.xcassets */; };
@@ -14,6 +16,7 @@
 		E3FF257E2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF257D2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift */; };
 		E3FF25882A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25872A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift */; };
 		E3FF258A2A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25892A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift */; };
+		EE21C282A5ABCA78B4CC7D19 /* Pods_PicCollageTakeHomeQuizTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4212AFDFB01C1C0074CA6AD4 /* Pods_PicCollageTakeHomeQuizTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11C26E897BE114D43C1F983D /* Pods-PicCollageTakeHomeQuizTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuizTests.release.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuizTests/Pods-PicCollageTakeHomeQuizTests.release.xcconfig"; sourceTree = "<group>"; };
+		2E17BF1088E02C8668FBDB0E /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4212AFDFB01C1C0074CA6AD4 /* Pods_PicCollageTakeHomeQuizTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicCollageTakeHomeQuizTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B6F8502FCFCEBEEB48C3981 /* Pods_PicCollageTakeHomeQuiz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicCollageTakeHomeQuiz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		71856560071657889D53C092 /* Pods-PicCollageTakeHomeQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz.debug.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz.debug.xcconfig"; sourceTree = "<group>"; };
+		9784BEC299FE5F39FF91AAA1 /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3FF25632A284F95006F6CD0 /* PicCollageTakeHomeQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicCollageTakeHomeQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25662A284F95006F6CD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FF256A2A284F95006F6CD0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +54,9 @@
 		E3FF25832A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicCollageTakeHomeQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25872A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollageTakeHomeQuizUITests.swift; sourceTree = "<group>"; };
 		E3FF25892A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollageTakeHomeQuizUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E61040FF4BB91CC7E982F24B /* Pods-PicCollageTakeHomeQuizTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuizTests.debug.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuizTests/Pods-PicCollageTakeHomeQuizTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F110CE657F6511BBF36932EA /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F9C3427747B0300F620F9A1D /* Pods-PicCollageTakeHomeQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz.release.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100CE7D70E023ECE1B2B37B3 /* Pods_PicCollageTakeHomeQuiz.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE21C282A5ABCA78B4CC7D19 /* Pods_PicCollageTakeHomeQuizTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,12 +80,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E74D9EAB02469BA638E6EAC /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02FCF2A4A14FAF3B284CFA34 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B6F8502FCFCEBEEB48C3981 /* Pods_PicCollageTakeHomeQuiz.framework */,
+				2E17BF1088E02C8668FBDB0E /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework */,
+				4212AFDFB01C1C0074CA6AD4 /* Pods_PicCollageTakeHomeQuizTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8EB945FE5A638A37652F9F54 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				71856560071657889D53C092 /* Pods-PicCollageTakeHomeQuiz.debug.xcconfig */,
+				F9C3427747B0300F620F9A1D /* Pods-PicCollageTakeHomeQuiz.release.xcconfig */,
+				9784BEC299FE5F39FF91AAA1 /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig */,
+				F110CE657F6511BBF36932EA /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig */,
+				E61040FF4BB91CC7E982F24B /* Pods-PicCollageTakeHomeQuizTests.debug.xcconfig */,
+				11C26E897BE114D43C1F983D /* Pods-PicCollageTakeHomeQuizTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		E3FF255A2A284F95006F6CD0 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +118,8 @@
 				E3FF257C2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests */,
 				E3FF25862A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests */,
 				E3FF25642A284F95006F6CD0 /* Products */,
+				8EB945FE5A638A37652F9F54 /* Pods */,
+				02FCF2A4A14FAF3B284CFA34 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,9 +169,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3FF258D2A284F96006F6CD0 /* Build configuration list for PBXNativeTarget "PicCollageTakeHomeQuiz" */;
 			buildPhases = (
+				BDBD9AA025A0AEDB5800C668 /* [CP] Check Pods Manifest.lock */,
 				E3FF255F2A284F95006F6CD0 /* Sources */,
 				E3FF25602A284F95006F6CD0 /* Frameworks */,
 				E3FF25612A284F95006F6CD0 /* Resources */,
+				43A028C779C7E7A58D0DAC68 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -145,9 +188,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3FF25902A284F96006F6CD0 /* Build configuration list for PBXNativeTarget "PicCollageTakeHomeQuizTests" */;
 			buildPhases = (
+				29DCCFC4FE73542F706515E8 /* [CP] Check Pods Manifest.lock */,
 				E3FF25752A284F96006F6CD0 /* Sources */,
 				E3FF25762A284F96006F6CD0 /* Frameworks */,
 				E3FF25772A284F96006F6CD0 /* Resources */,
+				C10435AE2D1031C1336D7704 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -163,9 +208,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E3FF25932A284F96006F6CD0 /* Build configuration list for PBXNativeTarget "PicCollageTakeHomeQuizUITests" */;
 			buildPhases = (
+				0141AC95A482549E76EB9465 /* [CP] Check Pods Manifest.lock */,
 				E3FF257F2A284F96006F6CD0 /* Sources */,
 				E3FF25802A284F96006F6CD0 /* Frameworks */,
 				E3FF25812A284F96006F6CD0 /* Resources */,
+				5FCAB70B61B5374D66E6E731 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -245,6 +292,126 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0141AC95A482549E76EB9465 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29DCCFC4FE73542F706515E8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PicCollageTakeHomeQuizTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		43A028C779C7E7A58D0DAC68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5FCAB70B61B5374D66E6E731 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BDBD9AA025A0AEDB5800C668 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PicCollageTakeHomeQuiz-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C10435AE2D1031C1336D7704 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuizTests/Pods-PicCollageTakeHomeQuizTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuizTests/Pods-PicCollageTakeHomeQuizTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PicCollageTakeHomeQuizTests/Pods-PicCollageTakeHomeQuizTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E3FF255F2A284F95006F6CD0 /* Sources */ = {
@@ -416,6 +583,7 @@
 		};
 		E3FF258E2A284F96006F6CD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71856560071657889D53C092 /* Pods-PicCollageTakeHomeQuiz.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -443,6 +611,7 @@
 		};
 		E3FF258F2A284F96006F6CD0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9C3427747B0300F620F9A1D /* Pods-PicCollageTakeHomeQuiz.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -470,6 +639,7 @@
 		};
 		E3FF25912A284F96006F6CD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E61040FF4BB91CC7E982F24B /* Pods-PicCollageTakeHomeQuizTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -490,6 +660,7 @@
 		};
 		E3FF25922A284F96006F6CD0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11C26E897BE114D43C1F983D /* Pods-PicCollageTakeHomeQuizTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -510,6 +681,7 @@
 		};
 		E3FF25942A284F96006F6CD0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9784BEC299FE5F39FF91AAA1 /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -528,6 +700,7 @@
 		};
 		E3FF25952A284F96006F6CD0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F110CE657F6511BBF36932EA /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
