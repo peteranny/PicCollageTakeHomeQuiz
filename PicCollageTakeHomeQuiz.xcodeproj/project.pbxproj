@@ -19,6 +19,7 @@
 		E3FF257E2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF257D2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift */; };
 		E3FF25882A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25872A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift */; };
 		E3FF258A2A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25892A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift */; };
+		E3FF25992A29A4E5006F6CD0 /* FontSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25982A29A4E5006F6CD0 /* FontSelectorViewModel.swift */; };
 		EE21C282A5ABCA78B4CC7D19 /* Pods_PicCollageTakeHomeQuizTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4212AFDFB01C1C0074CA6AD4 /* Pods_PicCollageTakeHomeQuizTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		E3FF25832A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicCollageTakeHomeQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25872A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollageTakeHomeQuizUITests.swift; sourceTree = "<group>"; };
 		E3FF25892A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollageTakeHomeQuizUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E3FF25982A29A4E5006F6CD0 /* FontSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewModel.swift; sourceTree = "<group>"; };
 		E61040FF4BB91CC7E982F24B /* Pods-PicCollageTakeHomeQuizTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuizTests.debug.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuizTests/Pods-PicCollageTakeHomeQuizTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F110CE657F6511BBF36932EA /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F9C3427747B0300F620F9A1D /* Pods-PicCollageTakeHomeQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz.release.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz.release.xcconfig"; sourceTree = "<group>"; };
@@ -126,6 +128,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E3B56AB42A2F0CC60044E5A9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				E3FF25982A29A4E5006F6CD0 /* FontSelectorViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		E3FF255A2A284F95006F6CD0 = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +164,7 @@
 				E3FF25662A284F95006F6CD0 /* AppDelegate.swift */,
 				E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */,
 				E305813D2A29AA9F00C61B99 /* Views */,
+				E3B56AB42A2F0CC60044E5A9 /* ViewModels */,
 				E3FF256F2A284F96006F6CD0 /* Assets.xcassets */,
 				E3FF25712A284F96006F6CD0 /* LaunchScreen.storyboard */,
 				E3FF25742A284F96006F6CD0 /* Info.plist */,
@@ -438,6 +449,7 @@
 				E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */,
 				E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */,
 				E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */,
+				E3FF25992A29A4E5006F6CD0 /* FontSelectorViewModel.swift in Sources */,
 				E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
