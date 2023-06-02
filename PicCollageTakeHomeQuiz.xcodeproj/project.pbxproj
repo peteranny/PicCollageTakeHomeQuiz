@@ -9,8 +9,11 @@
 /* Begin PBXBuildFile section */
 		100CE7D70E023ECE1B2B37B3 /* Pods_PicCollageTakeHomeQuiz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B6F8502FCFCEBEEB48C3981 /* Pods_PicCollageTakeHomeQuiz.framework */; };
 		9E74D9EAB02469BA638E6EAC /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E17BF1088E02C8668FBDB0E /* Pods_PicCollageTakeHomeQuiz_PicCollageTakeHomeQuizUITests.framework */; };
+		E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305813E2A29AACA00C61B99 /* SegmentationControl.swift */; };
+		E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581402A29AE1300C61B99 /* FontCollectionView.swift */; };
+		E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581422A29B16D00C61B99 /* SolidLineView.swift */; };
 		E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25662A284F95006F6CD0 /* AppDelegate.swift */; };
-		E3FF256B2A284F95006F6CD0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* ViewController.swift */; };
+		E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */; };
 		E3FF25702A284F96006F6CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FF256F2A284F96006F6CD0 /* Assets.xcassets */; };
 		E3FF25732A284F96006F6CD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3FF25712A284F96006F6CD0 /* LaunchScreen.storyboard */; };
 		E3FF257E2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF257D2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift */; };
@@ -43,9 +46,12 @@
 		5B6F8502FCFCEBEEB48C3981 /* Pods_PicCollageTakeHomeQuiz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PicCollageTakeHomeQuiz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71856560071657889D53C092 /* Pods-PicCollageTakeHomeQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz.debug.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz/Pods-PicCollageTakeHomeQuiz.debug.xcconfig"; sourceTree = "<group>"; };
 		9784BEC299FE5F39FF91AAA1 /* Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig"; path = "Target Support Files/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests/Pods-PicCollageTakeHomeQuiz-PicCollageTakeHomeQuizUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		E305813E2A29AACA00C61B99 /* SegmentationControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationControl.swift; sourceTree = "<group>"; };
+		E30581402A29AE1300C61B99 /* FontCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCollectionView.swift; sourceTree = "<group>"; };
+		E30581422A29B16D00C61B99 /* SolidLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidLineView.swift; sourceTree = "<group>"; };
 		E3FF25632A284F95006F6CD0 /* PicCollageTakeHomeQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicCollageTakeHomeQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25662A284F95006F6CD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E3FF256A2A284F95006F6CD0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewController.swift; sourceTree = "<group>"; };
 		E3FF256F2A284F96006F6CD0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E3FF25722A284F96006F6CD0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E3FF25742A284F96006F6CD0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -107,8 +113,17 @@
 				E61040FF4BB91CC7E982F24B /* Pods-PicCollageTakeHomeQuizTests.debug.xcconfig */,
 				11C26E897BE114D43C1F983D /* Pods-PicCollageTakeHomeQuizTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E305813D2A29AA9F00C61B99 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E305813E2A29AACA00C61B99 /* SegmentationControl.swift */,
+				E30581402A29AE1300C61B99 /* FontCollectionView.swift */,
+				E30581422A29B16D00C61B99 /* SolidLineView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E3FF255A2A284F95006F6CD0 = {
@@ -137,7 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				E3FF25662A284F95006F6CD0 /* AppDelegate.swift */,
-				E3FF256A2A284F95006F6CD0 /* ViewController.swift */,
+				E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */,
+				E305813D2A29AA9F00C61B99 /* Views */,
 				E3FF256F2A284F96006F6CD0 /* Assets.xcassets */,
 				E3FF25712A284F96006F6CD0 /* LaunchScreen.storyboard */,
 				E3FF25742A284F96006F6CD0 /* Info.plist */,
@@ -418,7 +434,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E3FF256B2A284F95006F6CD0 /* ViewController.swift in Sources */,
+				E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */,
+				E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */,
+				E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */,
+				E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */,
 				E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
