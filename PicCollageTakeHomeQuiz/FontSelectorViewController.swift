@@ -69,8 +69,12 @@ class FontSelectorViewController: UIViewController {
 
         // Binds the outputs
         let bindItems = outputs.items.receive(on: DispatchQueue.main).bind(subscriber: collectionView.subscriber)
+        let bindCategories = outputs.categories.map({ $0.map(\.title) }).receive(on: DispatchQueue.main).assign(to: \.items, on: segmentationControl)
 
-        cancellables.append(bindItems)
+        cancellables.append(contentsOf: [
+            bindItems,
+            bindCategories
+        ])
     }
 
     private let segmentationControl = SegmentationControl()

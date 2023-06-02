@@ -5,6 +5,7 @@
 //  Created by Peteranny on 2023/6/2.
 //
 
+import Combine
 import UIKit
 
 /// The control that allows the user to switch among segments.
@@ -37,15 +38,25 @@ class SegmentationControl: UIScrollView {
         ])
         stackView.spacing = 10
         stackView.clipsToBounds = false
+    }
+
+    private func setItems(_ items: [String]) {
+        // Remove previous segments
+        for subview in stackView.subviews {
+            subview.removeFromSuperview()
+        }
 
         // Install items by adding one label per segment
-        // TODO: Replaced with configurable segments
-        for title in ["All", "中文"] {
+        for item in items {
             let label = UILabel()
-            label.text = title
+            label.text = item
             label.translatesAutoresizingMaskIntoConstraints = false
             stackView.addArrangedSubview(label)
         }
+    }
+
+    var items: [String] = [] {
+        didSet { setItems(items) }
     }
 
     private let stackView = UIStackView()
