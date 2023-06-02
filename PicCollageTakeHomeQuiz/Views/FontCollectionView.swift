@@ -64,7 +64,6 @@ class FontCollectionView: UICollectionView {
         layout.itemSize = .init(width: (UIScreen.main.bounds.width - 30) / 2, height: 60)
 
         installCells()
-        installBindings()
     }
 
     required init?(coder: NSCoder) {
@@ -77,24 +76,9 @@ class FontCollectionView: UICollectionView {
         register(FontCollectionViewCell.self, forCellWithReuseIdentifier: "FontCollectionViewCell")
     }
 
-    private func installBindings() {
-        // The data source that consumes an item to render the cell
-        let subscriber: AnySubscriber<[FontItem], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, item in
-            cell.configure(title: item.title)
-        }
-
-        // Hard-coded models
-        // TODO: Replaced with real models
-        let items: [FontItem] = [
-            .init(title: "HAUNTED"),
-            .init(title: "Helvetica"),
-        ]
-
-        // Bind the models to the data source
-        Just<[FontItem]>(items)
-            .bind(subscriber: subscriber)
-            .store(in: &cancellables)
+    // The data source that consumes an item to render the cell
+    private(set) lazy var subscriber: AnySubscriber<[FontItem], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, item in
+        cell.configure(title: item.title)
     }
 
-    private var cancellables: [AnyCancellable] = []
 }

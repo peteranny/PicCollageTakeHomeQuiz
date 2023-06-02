@@ -5,14 +5,25 @@
 //  Created by Peteranny on 2023/6/1.
 //
 
+import Combine
+import CombineDataSources
 import UIKit
 
 class FontSelectorViewController: UIViewController {
+    init(viewModel: FontSelectorViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         installSubviews()
+        installBindings()
     }
 
     // MARK: - Private
@@ -49,8 +60,23 @@ class FontSelectorViewController: UIViewController {
         ])
     }
 
+    private func installBindings() {
+        // The inputs to the view model
+        let inputs = FontSelectorViewModel.Inputs()
+
+        // Binds the inputs and gets the outputs
+        let outputs = viewModel.bind(inputs)
+
+        // Binds the outputs
+        let bindItems = outputs.items.bind(subscriber: collectionView.subscriber)
+
+        cancellables.append(bindItems)
+    }
+
     private let segmentationControl = SegmentationControl()
     private let separator = SolidLineView(axis: .horizontal, thickness: 0.5, backgroundColor: .black)
     private let collectionView = FontCollectionView()
+    private let viewModel: FontSelectorViewModel
+    private var cancellables: [AnyCancellable] = []
 }
 
