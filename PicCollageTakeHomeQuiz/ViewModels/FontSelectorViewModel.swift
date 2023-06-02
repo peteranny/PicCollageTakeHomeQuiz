@@ -10,14 +10,22 @@ import CombineDataSources
 
 class FontSelectorViewModel {
     struct Inputs {
+        // The changes to the selected category
+        let selectedCategory: AnyPublisher<FontCategory, Never>
     }
 
     struct Outputs {
         // The list of selectable categories
         let categories: AnyPublisher<[FontCategory], Never>
 
+        // The selected category out of the selectable categories
+        let selectedCategory: AnyPublisher<FontCategory, Never>
+
         // The item collection to be displayed
         let items: AnyPublisher<[FontItem], Never>
+
+        // The binding to the inputs that requires the call site to manage
+        let bindings: [AnyCancellable]
     }
 
     /// Binds the view model. Inputs may result in the changes to the outputs.
@@ -31,10 +39,28 @@ class FontSelectorViewModel {
             .map { [.all] + $0.map({ .specific($0) }) } // Always append "All" to the front
             .eraseToAnyPublisher()
 
+        // Displays only the items that match the selected category
+        let items = Publishers
+            .CombineLatest(itemsRelay, selectedCategoryRelay)
+            .map { items, category in
+                switch category {
+                case .all:
+                    return items
+                case .specific(let title):
+                    return items.filter { $0.category == title }
+                }
+            }
+            .eraseToAnyPublisher()
+
+        // Binds the inputs
+        let bindSelectedCategory = inputs.selectedCategory.sink(receiveValue: { [selectedCategoryRelay] in selectedCategoryRelay.send($0) })
+
         // Return the outputs
         return Outputs(
             categories: categories,
-            items: itemsRelay.eraseToAnyPublisher()
+            selectedCategory: selectedCategoryRelay.eraseToAnyPublisher(),
+            items: items,
+            bindings: [bindSelectedCategory]
         )
     }
 
@@ -51,5 +77,6 @@ class FontSelectorViewModel {
 
     private let manager: FontManager
     private let itemsRelay = CurrentValueSubject<[FontItem], Never>([])
+    private let selectedCategoryRelay = CurrentValueSubject<FontCategory, Never>(.all)
     private var cancellables: [AnyCancellable] = []
 }

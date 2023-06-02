@@ -9,6 +9,15 @@ enum FontCategory {
     case all
     case specific(String)
 
+    init(rawValue: String) {
+        switch rawValue {
+        case Constants.all:
+            self = .all
+        default:
+            self = .specific(rawValue)
+        }
+    }
+
     var title: String {
         switch self {
         case .all:

@@ -6,15 +6,22 @@
 //
 
 import Combine
+import CombineCocoa
 import UIKit
 
 /// The control that allows the user to switch among segments.
 /// Horizontal scrollbar appears if the segments are out of the bounds so user can scroll to reveal them.
 class SegmentationControl: UIScrollView {
+    struct Item {
+        let title: String
+        let identifier: String
+    }
+
     init() {
         super.init(frame: .zero)
 
         installSubviews()
+        installBindings()
     }
 
     required init?(coder: NSCoder) {
@@ -40,7 +47,21 @@ class SegmentationControl: UIScrollView {
         stackView.clipsToBounds = false
     }
 
-    private func setItems(_ items: [String]) {
+    private func installBindings() {
+        selectedIdentifierRelay
+            .sink(receiveValue: { [weak self] in
+                self?.setSelectedIdentifier($0)
+            })
+            .store(in: &cancellables)
+
+        userDrivenSelectedIdentifierRelay
+            .sink(receiveValue: { [selectedIdentifierRelay] in
+                selectedIdentifierRelay.send($0)
+            })
+            .store(in: &cancellables)
+    }
+
+    private func setItems(_ items: [Item]) {
         // Remove previous segments
         for subview in stackView.subviews {
             subview.removeFromSuperview()
@@ -48,16 +69,42 @@ class SegmentationControl: UIScrollView {
 
         // Install items by adding one label per segment
         for item in items {
-            let label = UILabel()
-            label.text = item
-            label.translatesAutoresizingMaskIntoConstraints = false
-            stackView.addArrangedSubview(label)
+            let button = UIButton()
+            button.setTitle(item.title, for: .normal)
+            button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(.systemGreen, for: .selected)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            buttonCancellables.append(
+                button.tapPublisher.map { item.identifier }.sink(receiveValue: { [userDrivenSelectedIdentifierRelay] in userDrivenSelectedIdentifierRelay.send($0) })
+            )
+            stackView.addArrangedSubview(button)
+        }
+
+        setSelectedIdentifier(selectedIdentifierRelay.value)
+    }
+
+    private func setSelectedIdentifier(_ identifier: String?) {
+        for (index, subview) in stackView.subviews.enumerated() {
+            (subview as? UIButton)?.isSelected = items[index].identifier == identifier
         }
     }
 
-    var items: [String] = [] {
+    var items: [Item] = [] {
         didSet { setItems(items) }
     }
 
     private let stackView = UIStackView()
+    private let userDrivenSelectedIdentifierRelay = PassthroughSubject<String?, Never>()
+    private let selectedIdentifierRelay = CurrentValueSubject<String?, Never>(nil)
+    private var cancellables: [AnyCancellable] = []
+    private var buttonCancellables: [AnyCancellable] = []
+
+    var selectedIdentifierPublisher: AnyPublisher<String?, Never> {
+        userDrivenSelectedIdentifierRelay.eraseToAnyPublisher()
+    }
+
+    var selectedIdentifier: String? {
+        get { selectedIdentifierRelay.value }
+        set { selectedIdentifierRelay.send(newValue) }
+    }
 }

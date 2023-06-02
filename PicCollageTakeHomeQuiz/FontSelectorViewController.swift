@@ -62,19 +62,36 @@ class FontSelectorViewController: UIViewController {
 
     private func installBindings() {
         // The inputs to the view model
-        let inputs = FontSelectorViewModel.Inputs()
+        let selectedCategory = segmentationControl.selectedIdentifierPublisher
+            .compactMap({ $0 })
+            .map({ FontCategory(rawValue: $0) })
+            .eraseToAnyPublisher()
+
+        let inputs = FontSelectorViewModel.Inputs(
+            selectedCategory: selectedCategory
+        )
 
         // Binds the inputs and gets the outputs
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
         let bindItems = outputs.items.receive(on: DispatchQueue.main).bind(subscriber: collectionView.subscriber)
-        let bindCategories = outputs.categories.map({ $0.map(\.title) }).receive(on: DispatchQueue.main).assign(to: \.items, on: segmentationControl)
+
+        let bindSelectedCategory = outputs.selectedCategory
+            .map({ $0.title })
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.selectedIdentifier, on: segmentationControl)
+
+        let bindCategories = outputs.categories
+            .map { $0.map { SegmentationControl.Item(title: $0.title, identifier: $0.title) } } // Each category maps to a
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.items, on: segmentationControl)
 
         cancellables.append(contentsOf: [
             bindItems,
-            bindCategories
-        ])
+            bindSelectedCategory,
+            bindCategories,
+        ] + outputs.bindings)
     }
 
     private let segmentationControl = SegmentationControl()
