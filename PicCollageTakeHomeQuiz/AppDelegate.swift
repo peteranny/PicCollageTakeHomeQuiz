@@ -16,7 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         let window = UIWindow()
-        let viewModel = FontSelectorViewModel()
+        let manager = FontManager()
+        let viewModel = FontSelectorViewModel(manager: manager)
         window.rootViewController = FontSelectorViewController(viewModel: viewModel)
         window.makeKeyAndVisible()
 

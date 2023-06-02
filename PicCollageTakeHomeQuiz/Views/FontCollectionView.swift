@@ -10,11 +10,7 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-// MARK: - Section / Item for RxDataSources
-
-struct FontItem {
-    let title: String
-}
+// MARK: - Section for RxDataSources
 
 struct FontSection {
     let items: [FontItem]
@@ -61,6 +57,7 @@ class FontCollectionViewCell: UICollectionViewCell {
     }
 
     private let titleLabel = UILabel()
+    private var disposeBag = DisposeBag()
 }
 
 // MARK: - Collection view
@@ -90,7 +87,7 @@ class FontCollectionView: UICollectionView {
     // The data source that consumes an item to render the cell
     fileprivate let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, item in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCollectionViewCell", for: indexPath) as! FontCollectionViewCell
-        cell.configure(title: item.title)
+        cell.configure(title: item.family)
         return cell
     }
 }
