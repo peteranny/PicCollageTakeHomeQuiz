@@ -69,8 +69,12 @@ class FontSelectorViewController: UIViewController {
 
         // Binds the outputs
         let bindItems = outputs.items.drive(collectionView.rx.items)
+        let bindCategories = outputs.categories.map({ $0.map(\.title) }).drive(segmentationControl.rx.items)
 
-        disposeBag.insert(bindItems)
+        disposeBag.insert(
+            bindItems,
+            bindCategories
+        )
     }
 
     private let segmentationControl = SegmentationControl()
