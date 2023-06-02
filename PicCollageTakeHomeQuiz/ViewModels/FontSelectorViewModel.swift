@@ -22,16 +22,20 @@ class FontSelectorViewModel {
     /// - Parameter inputs: The inputs to the view model.
     /// - Returns: The outputs from the view model
     func bind(_ inputs: Inputs) -> Outputs {
-        // The items to be displayed
-        // TODO: Replaced with real items
-        let items = Driver<[FontItem]>.just([
-            .init(title: "HAUNTED"),
-            .init(title: "Helvetica"),
-        ])
+        // Fetch the items to be displayed
+        let items = manager.fetchItems().asDriver(onErrorJustReturn: []).startWith([])
 
         // Return the outputs
         return Outputs(
             items: items
         )
     }
+
+    init(manager: FontManager) {
+        self.manager = manager
+    }
+
+    // MARK: - Private
+
+    private let manager: FontManager
 }
