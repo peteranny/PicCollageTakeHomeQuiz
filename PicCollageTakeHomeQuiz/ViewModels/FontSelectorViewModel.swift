@@ -13,6 +13,9 @@ class FontSelectorViewModel {
     }
 
     struct Outputs {
+        // The list of selectable categories
+        let categories: Driver<[FontCategory]>
+
         // The item collection to be displayed
         let items: Driver<[FontItem]>
     }
@@ -22,20 +25,28 @@ class FontSelectorViewModel {
     /// - Parameter inputs: The inputs to the view model.
     /// - Returns: The outputs from the view model
     func bind(_ inputs: Inputs) -> Outputs {
-        // Fetch the items to be displayed
-        let items = manager.fetchItems().asDriver(onErrorJustReturn: []).startWith([])
+        // Compute categories from items
+        let categories: Driver<[FontCategory]> = itemsRelay.asDriver()
+            .map { Set($0.map(\.category)).sorted() } // Get sorted distinct categories
+            .map { [.all] + $0.map({ .specific($0) }) } // Always append "All" to the front
 
         // Return the outputs
         return Outputs(
-            items: items
+            categories: categories,
+            items: itemsRelay.asDriver()
         )
     }
 
     init(manager: FontManager) {
         self.manager = manager
+
+        // Fetch the items to be displayed
+        manager.fetchItems().asObservable().bind(to: itemsRelay).disposed(by: disposeBag)
     }
 
     // MARK: - Private
 
     private let manager: FontManager
+    private let itemsRelay = BehaviorRelay<[FontItem]>(value: [])
+    private let disposeBag = DisposeBag()
 }

@@ -15,6 +15,7 @@
 		E305814E2A29CE1E00C61B99 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305814D2A29CE1E00C61B99 /* FontItem.swift */; };
 		E360338D2A30D45900676589 /* FontStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E360338C2A30D45900676589 /* FontStorage.swift */; };
 		E3B56AAE2A2E35DF0044E5A9 /* FontResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */; };
+		E3B56AB62A2F2AA00044E5A9 /* FontCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */; };
 		E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25662A284F95006F6CD0 /* AppDelegate.swift */; };
 		E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */; };
 		E3FF25702A284F96006F6CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FF256F2A284F96006F6CD0 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		E305814D2A29CE1E00C61B99 /* FontItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontItem.swift; sourceTree = "<group>"; };
 		E360338C2A30D45900676589 /* FontStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStorage.swift; sourceTree = "<group>"; };
 		E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontResponse.swift; sourceTree = "<group>"; };
+		E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCategory.swift; sourceTree = "<group>"; };
 		E3FF25632A284F95006F6CD0 /* PicCollageTakeHomeQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicCollageTakeHomeQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25662A284F95006F6CD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		E30581472A29CA2200C61B99 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */,
 				E305814D2A29CE1E00C61B99 /* FontItem.swift */,
 				E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */,
 			);
@@ -479,6 +482,7 @@
 				E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */,
 				E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */,
 				E3FF25992A29A4E5006F6CD0 /* FontSelectorViewModel.swift in Sources */,
+				E3B56AB62A2F2AA00044E5A9 /* FontCategory.swift in Sources */,
 				E3FF25972A28528F006F6CD0 /* FontManager.swift in Sources */,
 				E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */,
 				E305814E2A29CE1E00C61B99 /* FontItem.swift in Sources */,
