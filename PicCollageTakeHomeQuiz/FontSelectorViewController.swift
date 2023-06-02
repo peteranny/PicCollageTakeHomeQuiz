@@ -62,18 +62,33 @@ class FontSelectorViewController: UIViewController {
 
     private func installBindings() {
         // The inputs to the view model
-        let inputs = FontSelectorViewModel.Inputs()
+        let selectedCategory = segmentationControl.rx.selectedIdentifier
+            .compactMap({ $0 })
+            .map({ FontCategory(rawValue: $0) })
+
+        let inputs = FontSelectorViewModel.Inputs(
+            selectedCategory: selectedCategory
+        )
 
         // Binds the inputs and gets the outputs
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
         let bindItems = outputs.items.drive(collectionView.rx.items)
-        let bindCategories = outputs.categories.map({ $0.map(\.title) }).drive(segmentationControl.rx.items)
+
+        let bindSelectedCategory = outputs.selectedCategory
+            .map({ $0.title })
+            .drive(segmentationControl.rx.selectedIdentifier)
+
+        let bindCategories = outputs.categories
+            .map { $0.map { SegmentationControl.Item(title: $0.title, identifier: $0.title) } } // Each category maps to a segmentation item
+            .drive(segmentationControl.rx.items)
 
         disposeBag.insert(
             bindItems,
-            bindCategories
+            bindSelectedCategory,
+            bindCategories,
+            outputs.bindings
         )
     }
 
