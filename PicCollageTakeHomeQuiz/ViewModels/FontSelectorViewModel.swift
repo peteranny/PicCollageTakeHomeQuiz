@@ -22,16 +22,25 @@ class FontSelectorViewModel {
     /// - Parameter inputs: The inputs to the view model.
     /// - Returns: The outputs from the view model
     func bind(_ inputs: Inputs) -> Outputs {
-        // The items to be displayed
-        // TODO: Replaced with real items
-        let items = Just<[FontItem]>([
-            .init(title: "HAUNTED"),
-            .init(title: "Helvetica"),
-        ]).eraseToAnyPublisher()
+        let items = CurrentValueSubject<[FontItem], Never>([])
+
+        // Fetch the items to be displayed
+        Future(manager.fetchItems)
+            .sink { _ in } receiveValue: { items.send($0) }
+            .store(in: &cancellables)
 
         // Return the outputs
         return Outputs(
-            items: items
+            items: items.eraseToAnyPublisher()
         )
     }
+
+    init(manager: FontManager) {
+        self.manager = manager
+    }
+
+    // MARK: - Private
+
+    private let manager: FontManager
+    private var cancellables: [AnyCancellable] = []
 }

@@ -11,9 +11,12 @@
 		7265BA1A2A84B68B003D91C7 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA192A84B68B003D91C7 /* CombineDataSources */; };
 		7265BA1D2A84B699003D91C7 /* Entwine in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA1C2A84B699003D91C7 /* Entwine */; };
 		7265BA1F2A84B699003D91C7 /* EntwineTest in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA1E2A84B699003D91C7 /* EntwineTest */; };
+		7212F3142A81F2E100FA9718 /* Combine+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7212F3132A81F2E100FA9718 /* Combine+Future.swift */; };
 		E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305813E2A29AACA00C61B99 /* SegmentationControl.swift */; };
 		E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581402A29AE1300C61B99 /* FontCollectionView.swift */; };
 		E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581422A29B16D00C61B99 /* SolidLineView.swift */; };
+		E305814E2A29CE1E00C61B99 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305814D2A29CE1E00C61B99 /* FontItem.swift */; };
+		E3B56AAE2A2E35DF0044E5A9 /* FontResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */; };
 		E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25662A284F95006F6CD0 /* AppDelegate.swift */; };
 		E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */; };
 		E3FF25702A284F96006F6CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FF256F2A284F96006F6CD0 /* Assets.xcassets */; };
@@ -21,6 +24,7 @@
 		E3FF257E2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF257D2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift */; };
 		E3FF25882A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25872A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift */; };
 		E3FF258A2A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25892A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift */; };
+		E3FF25972A28528F006F6CD0 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25962A28528F006F6CD0 /* FontManager.swift */; };
 		E3FF25992A29A4E5006F6CD0 /* FontSelectorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25982A29A4E5006F6CD0 /* FontSelectorViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,9 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7212F3132A81F2E100FA9718 /* Combine+Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Future.swift"; sourceTree = "<group>"; };
 		E305813E2A29AACA00C61B99 /* SegmentationControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentationControl.swift; sourceTree = "<group>"; };
 		E30581402A29AE1300C61B99 /* FontCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCollectionView.swift; sourceTree = "<group>"; };
 		E30581422A29B16D00C61B99 /* SolidLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidLineView.swift; sourceTree = "<group>"; };
+		E305814D2A29CE1E00C61B99 /* FontItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontItem.swift; sourceTree = "<group>"; };
+		E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontResponse.swift; sourceTree = "<group>"; };
 		E3FF25632A284F95006F6CD0 /* PicCollageTakeHomeQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicCollageTakeHomeQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25662A284F95006F6CD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +63,7 @@
 		E3FF25832A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PicCollageTakeHomeQuizUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25872A284F96006F6CD0 /* PicCollageTakeHomeQuizUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollageTakeHomeQuizUITests.swift; sourceTree = "<group>"; };
 		E3FF25892A284F96006F6CD0 /* PicCollageTakeHomeQuizUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicCollageTakeHomeQuizUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E3FF25962A28528F006F6CD0 /* FontManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontManager.swift; sourceTree = "<group>"; };
 		E3FF25982A29A4E5006F6CD0 /* FontSelectorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,6 +96,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7212F3122A81F2D400FA9718 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				7212F3132A81F2E100FA9718 /* Combine+Future.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E305813D2A29AA9F00C61B99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +112,23 @@
 				E30581422A29B16D00C61B99 /* SolidLineView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		E30581472A29CA2200C61B99 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E305814D2A29CE1E00C61B99 /* FontItem.swift */,
+				E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E30581482A29CA2B00C61B99 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E3FF25962A28528F006F6CD0 /* FontManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		E3B56AB42A2F0CC60044E5A9 /* ViewModels */ = {
@@ -131,8 +164,11 @@
 			children = (
 				E3FF25662A284F95006F6CD0 /* AppDelegate.swift */,
 				E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */,
+				E30581472A29CA2200C61B99 /* Models */,
+				E30581482A29CA2B00C61B99 /* Services */,
 				E305813D2A29AA9F00C61B99 /* Views */,
 				E3B56AB42A2F0CC60044E5A9 /* ViewModels */,
+				7212F3122A81F2D400FA9718 /* Utils */,
 				E3FF256F2A284F96006F6CD0 /* Assets.xcassets */,
 				E3FF25712A284F96006F6CD0 /* LaunchScreen.storyboard */,
 				E3FF25742A284F96006F6CD0 /* Info.plist */,
@@ -303,7 +339,11 @@
 				E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */,
 				E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */,
 				E3FF25992A29A4E5006F6CD0 /* FontSelectorViewModel.swift in Sources */,
+				E3FF25972A28528F006F6CD0 /* FontManager.swift in Sources */,
+				7212F3142A81F2E100FA9718 /* Combine+Future.swift in Sources */,
 				E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */,
+				E305814E2A29CE1E00C61B99 /* FontItem.swift in Sources */,
+				E3B56AAE2A2E35DF0044E5A9 /* FontResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

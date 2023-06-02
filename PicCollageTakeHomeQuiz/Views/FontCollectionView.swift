@@ -9,11 +9,7 @@ import Combine
 import CombineDataSources
 import UIKit
 
-// MARK: - Section / Item for RxDataSources
-
-struct FontItem: Hashable {
-    let title: String
-}
+// MARK: - Section for RxDataSources
 
 // MARK: - Cell
 
@@ -78,7 +74,7 @@ class FontCollectionView: UICollectionView {
 
     // The data source that consumes an item to render the cell
     private(set) lazy var subscriber: AnySubscriber<[FontItem], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, item in
-        cell.configure(title: item.title)
+        cell.configure(title: item.family)
     }
 
 }

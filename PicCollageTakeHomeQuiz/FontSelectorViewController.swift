@@ -68,7 +68,7 @@ class FontSelectorViewController: UIViewController {
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
-        let bindItems = outputs.items.bind(subscriber: collectionView.subscriber)
+        let bindItems = outputs.items.receive(on: DispatchQueue.main).bind(subscriber: collectionView.subscriber)
 
         cancellables.append(bindItems)
     }
