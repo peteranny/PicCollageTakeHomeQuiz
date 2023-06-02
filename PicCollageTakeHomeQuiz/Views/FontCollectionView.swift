@@ -75,7 +75,6 @@ class FontCollectionView: UICollectionView {
         layout.itemSize = .init(width: (UIScreen.main.bounds.width - 30) / 2, height: 60)
 
         installCells()
-        installBindings()
     }
 
     required init?(coder: NSCoder) {
@@ -88,28 +87,30 @@ class FontCollectionView: UICollectionView {
         register(FontCollectionViewCell.self, forCellWithReuseIdentifier: "FontCollectionViewCell")
     }
 
-    private func installBindings() {
-        // The data source that consumes an item to render the cell
-        let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, item in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCollectionViewCell", for: indexPath) as! FontCollectionViewCell
-            cell.configure(title: item.title)
-            return cell
-        }
-
-        // Hard-coded models
-        // TODO: Replaced with real models
-        let sections: [FontSection] = [
-            .init(items: [
-                .init(title: "HAUNTED"),
-                .init(title: "Helvetica"),
-            ]),
-        ]
-
-        // Bind the models to the data source
-        Observable.just(sections)
-            .bind(to: rx.items(dataSource: rxDataSource))
-            .disposed(by: disposeBag)
+    // The data source that consumes an item to render the cell
+    fileprivate let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, item in
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCollectionViewCell", for: indexPath) as! FontCollectionViewCell
+        cell.configure(title: item.title)
+        return cell
     }
+}
 
-    private let disposeBag = DisposeBag()
+extension Reactive where Base: FontCollectionView {
+    // Returns the binder that binds items to the data sources
+    var items: (Observable<[FontItem]>) -> Disposable {
+
+        // Get the binder that binds the sections to the data source
+        let binder: (Observable<[FontSection]>) -> Disposable = items(dataSource: base.rxDataSource)
+
+        // Returns the closure with the items as the inputs
+        return { items in
+
+            // Maps the items to the sections
+            let sections = items.map { [FontSection(items: $0)] }
+
+            // Binds the sections to the data source
+            return binder(sections)
+
+        }
+    }
 }
