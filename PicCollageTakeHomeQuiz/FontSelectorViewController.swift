@@ -74,7 +74,7 @@ class FontSelectorViewController: UIViewController {
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
-        let bindItems = outputs.items.drive(collectionView.rx.items)
+        let bindModels = outputs.models.drive(collectionView.rx.models)
 
         let bindSelectedCategory = outputs.selectedCategory
             .map({ $0.title })
@@ -85,7 +85,7 @@ class FontSelectorViewController: UIViewController {
             .drive(segmentationControl.rx.items)
 
         disposeBag.insert(
-            bindItems,
+            bindModels,
             bindSelectedCategory,
             bindCategories,
             outputs.bindings

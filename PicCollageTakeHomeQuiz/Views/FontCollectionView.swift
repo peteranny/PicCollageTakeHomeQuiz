@@ -13,12 +13,16 @@ import UIKit
 // MARK: - Section for RxDataSources
 
 struct FontSection {
-    let items: [FontItem]
+    let models: [FontModel]
 }
 
 extension FontSection: SectionModelType {
-    init(original: FontSection, items: [FontItem]) {
-        self.init(items: items)
+    init(original: FontSection, items models: [FontModel]) {
+        self.init(models: models)
+    }
+
+    var items: [FontModel] {
+        models
     }
 }
 
@@ -35,10 +39,27 @@ class FontCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        disposeBag = DisposeBag()
+    }
+
     /// Configure the cell with the provided font context
     /// - Parameter title: The font title
-    func configure(title: String) {
+    func configure(title: String, font: Driver<String?>) {
         titleLabel.text = title
+
+        // Respond to font changes
+        font
+            .map { [fontSize = titleLabel.font.pointSize] font in
+                guard let font else {
+                    return nil
+                }
+                return UIFont(name: font, size: fontSize)
+            }
+            .drive(titleLabel.rx.font)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Private
@@ -85,25 +106,25 @@ class FontCollectionView: UICollectionView {
     }
 
     // The data source that consumes an item to render the cell
-    fileprivate let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, item in
+    fileprivate let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, model in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCollectionViewCell", for: indexPath) as! FontCollectionViewCell
-        cell.configure(title: item.family)
+        cell.configure(title: model.item.family, font: model.menu)
         return cell
     }
 }
 
 extension Reactive where Base: FontCollectionView {
-    // Returns the binder that binds items to the data sources
-    var items: (Observable<[FontItem]>) -> Disposable {
+    /// Returns the binder that binds models to the data sources
+    var models: (Observable<[FontModel]>) -> Disposable {
 
         // Get the binder that binds the sections to the data source
         let binder: (Observable<[FontSection]>) -> Disposable = items(dataSource: base.rxDataSource)
 
-        // Returns the closure with the items as the inputs
-        return { items in
+        // Returns the closure with the models as the inputs
+        return { models in
 
-            // Maps the items to the sections
-            let sections = items.map { [FontSection(items: $0)] }
+            // Maps the models to the sections
+            let sections = models.map { [FontSection(models: $0)] }
 
             // Binds the sections to the data source
             return binder(sections)
