@@ -21,8 +21,8 @@ class FontSelectorViewModel {
         // The selected category out of the selectable categories
         let selectedCategory: Driver<FontCategory>
 
-        // The item collection to be displayed
-        let items: Driver<[FontItem]>
+        // The model collection to be displayed
+        let models: Driver<[FontModel]>
 
         // The binding to the inputs that requires the call site to manage
         let bindings: Disposable
@@ -33,20 +33,20 @@ class FontSelectorViewModel {
     /// - Parameter inputs: The inputs to the view model.
     /// - Returns: The outputs from the view model
     func bind(_ inputs: Inputs) -> Outputs {
-        // Compute categories from items
-        let categories: Driver<[FontCategory]> = itemsRelay.asDriver()
-            .map { Set($0.map(\.category)).sorted() } // Get sorted distinct categories
+        // Compute categories from models
+        let categories: Driver<[FontCategory]> = modelsRelay.asDriver()
+            .map { Set($0.map(\.item.category)).sorted() } // Get sorted distinct categories
             .map { [.all] + $0.map({ .specific($0) }) } // Always append "All" to the front
 
         // Displays only the items that match the selected category
-        let items = Driver
-            .combineLatest(itemsRelay.asDriver(), selectedCategoryRelay.asDriver())
-            .map { items, category in
+        let models = Driver
+            .combineLatest(modelsRelay.asDriver(), selectedCategoryRelay.asDriver())
+            .map { models, category in
                 switch category {
                 case .all:
-                    return items
+                    return models
                 case .specific(let title):
-                    return items.filter { $0.category == title }
+                    return models.filter { $0.item.category == title }
                 }
             }
 
@@ -57,7 +57,7 @@ class FontSelectorViewModel {
         return Outputs(
             categories: categories,
             selectedCategory: selectedCategoryRelay.asDriver(),
-            items: items,
+            models: models,
             bindings: bindSelectedCategory
         )
     }
@@ -66,13 +66,26 @@ class FontSelectorViewModel {
         self.manager = manager
 
         // Fetch the items to be displayed
-        manager.fetchItems().asObservable().bind(to: itemsRelay).disposed(by: disposeBag)
+        manager
+            .fetchItems()
+            .map { items -> [FontModel] in
+                return items.map { item in
+                    // Form the model with drivers
+                    return FontModel(
+                        item: item,
+                        menu: manager.menuDriver(for: item)
+                    )
+                }
+            }
+            .asObservable()
+            .bind(to: modelsRelay)
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Private
 
     private let manager: FontManager
-    private let itemsRelay = BehaviorRelay<[FontItem]>(value: [])
+    private let modelsRelay = BehaviorRelay<[FontModel]>(value: [])
     private let selectedCategoryRelay = BehaviorRelay<FontCategory>(value: .all)
     private let disposeBag = DisposeBag()
 }
