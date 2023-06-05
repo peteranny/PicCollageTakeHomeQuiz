@@ -7,6 +7,29 @@
 
 import Combine
 
+extension Publisher {
+    func asFuture() -> Future<Output, Failure> {
+        Future { promise in
+            var cancellable: AnyCancellable?
+            cancellable = sink { completion in
+                cancellable?.cancel()
+                cancellable = nil
+                switch completion {
+                case .failure(let error):
+                    promise(.failure(error))
+
+                case .finished:
+                    break
+                }
+            } receiveValue: { value in
+                cancellable?.cancel()
+                cancellable = nil
+                promise(.success(value))
+            }
+        }
+    }
+}
+
 extension Future where Failure == Error {
     convenience init(_ asyncFunc: @escaping () async throws -> Output) {
         self.init { promise in
