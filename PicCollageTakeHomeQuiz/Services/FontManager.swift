@@ -71,4 +71,46 @@ class FontManager {
 
         static let requestTTL = 60.0
     }
+
+    // MARK: - Font menu
+
+    /// Returns the menu driver for the given font item
+    func menuDriver(for item: FontItem) -> AnyPublisher<String?, Never> {
+        // Return the menu associated with the family
+        return menusRelay
+            .map { $0[item.family] }
+            .removeDuplicates()
+            // Load the menu only on demand
+            .handleEvents(receiveSubscription: { [weak self] _ in
+                // Invoked with the queue to prevent race condition on the stored menus
+                self?.loadingQueue.async { self?.loadMenuIfNeeded(for: item) }
+            })
+            .eraseToAnyPublisher()
+    }
+
+    /// Load the menu for the given font URL
+    /// No-op when the menu has been loaded
+    private func loadMenuIfNeeded(for item: FontItem) {
+        let menu = stateQueue.sync {
+            menusRelay.value[item.family]
+        }
+
+        guard menu == nil else {
+            // Early return if there has been the font
+            return
+        }
+
+        // Load the menu and store it
+        let loaded = FontLoader.loadFont(for: item.menu)
+
+        // Set the menu
+        stateQueue.async { [menusRelay] in
+            var menus = menusRelay.value
+            menus[item.family] = loaded
+            menusRelay.send(menus)
+        }
+    }
+
+    private let loadingQueue = DispatchQueue(label: "FontManager.loadingQueue")
+    private let menusRelay = CurrentValueSubject<[String: String], Never>([:])
 }

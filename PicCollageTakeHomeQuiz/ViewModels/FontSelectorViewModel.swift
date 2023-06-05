@@ -21,8 +21,8 @@ class FontSelectorViewModel {
         // The selected category out of the selectable categories
         let selectedCategory: AnyPublisher<FontCategory, Never>
 
-        // The item collection to be displayed
-        let items: AnyPublisher<[FontItem], Never>
+        // The model collection to be displayed
+        let models: AnyPublisher<[FontModel], Never>
 
         // The binding to the inputs that requires the call site to manage
         let bindings: [AnyCancellable]
@@ -33,21 +33,21 @@ class FontSelectorViewModel {
     /// - Parameter inputs: The inputs to the view model.
     /// - Returns: The outputs from the view model
     func bind(_ inputs: Inputs) -> Outputs {
-        // Compute categories from items
-        let categories: AnyPublisher<[FontCategory], Never> = itemsRelay
-            .map { Set($0.map(\.category)).sorted() } // Get sorted distinct categories
+        // Compute categories from models
+        let categories: AnyPublisher<[FontCategory], Never> = modelsRelay
+            .map { Set($0.map(\.item.category)).sorted() } // Get sorted distinct categories
             .map { [.all] + $0.map({ .specific($0) }) } // Always append "All" to the front
             .eraseToAnyPublisher()
 
         // Displays only the items that match the selected category
-        let items = Publishers
-            .CombineLatest(itemsRelay, selectedCategoryRelay)
-            .map { items, category in
+        let models = Publishers
+            .CombineLatest(modelsRelay, selectedCategoryRelay)
+            .map { models, category in
                 switch category {
                 case .all:
-                    return items
+                    return models
                 case .specific(let title):
-                    return items.filter { $0.category == title }
+                    return models.filter { $0.item.category == title }
                 }
             }
             .eraseToAnyPublisher()
@@ -59,7 +59,7 @@ class FontSelectorViewModel {
         return Outputs(
             categories: categories,
             selectedCategory: selectedCategoryRelay.eraseToAnyPublisher(),
-            items: items,
+            models: models,
             bindings: [bindSelectedCategory]
         )
     }
@@ -69,14 +69,23 @@ class FontSelectorViewModel {
 
         // Fetch the items to be displayed
         Future(manager.fetchItems)
-            .sink { _ in } receiveValue: { [itemsRelay] in itemsRelay.send($0) }
+            .map { items -> [FontModel] in
+                return items.map { item in
+                    // Form the model with drivers
+                    return FontModel(
+                        item: item,
+                        menu: manager.menuDriver(for: item)
+                    )
+                }
+            }
+            .sink { _ in } receiveValue: { [modelsRelay] in modelsRelay.send($0) }
             .store(in: &cancellables)
     }
 
     // MARK: - Private
 
     private let manager: FontManager
-    private let itemsRelay = CurrentValueSubject<[FontItem], Never>([])
+    private let modelsRelay = CurrentValueSubject<[FontModel], Never>([])
     private let selectedCategoryRelay = CurrentValueSubject<FontCategory, Never>(.all)
     private var cancellables: [AnyCancellable] = []
 }

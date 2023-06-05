@@ -24,10 +24,28 @@ class FontCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        cancellables = []
+    }
+
     /// Configure the cell with the provided font context
     /// - Parameter title: The font title
-    func configure(title: String) {
+    func configure(title: String, font: AnyPublisher<String?, Never>) {
         titleLabel.text = title
+
+        // Respond to font changes
+        font
+            .map { [fontSize = titleLabel.font.pointSize] font in
+                guard let font else {
+                    return nil
+                }
+                return UIFont(name: font, size: fontSize)
+            }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.font, on: titleLabel)
+            .store(in: &cancellables)
     }
 
     // MARK: - Private
@@ -46,6 +64,7 @@ class FontCollectionViewCell: UICollectionViewCell {
     }
 
     private let titleLabel = UILabel()
+    private var cancellables: [AnyCancellable] = []
 }
 
 // MARK: - Collection view
@@ -73,8 +92,8 @@ class FontCollectionView: UICollectionView {
     }
 
     // The data source that consumes an item to render the cell
-    private(set) lazy var subscriber: AnySubscriber<[FontItem], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, item in
-        cell.configure(title: item.family)
+    private(set) lazy var subscriber: AnySubscriber<[FontModel], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, model in
+        cell.configure(title: model.item.family, font: model.menu)
     }
 
 }
