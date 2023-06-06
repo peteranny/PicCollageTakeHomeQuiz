@@ -80,6 +80,8 @@ class FontSelectorViewController: UIViewController {
             .map({ $0.title })
             .drive(segmentationControl.rx.selectedIdentifier)
 
+        let bindScrollToTop = outputs.selectedCategory.map { _ in .zero }.drive(collectionView.rx.contentOffset)
+
         let bindCategories = outputs.categories
             .map { $0.map { SegmentationControl.Item(title: $0.title, identifier: $0.title) } } // Each category maps to a segmentation item
             .drive(segmentationControl.rx.items)
@@ -87,6 +89,7 @@ class FontSelectorViewController: UIViewController {
         disposeBag.insert(
             bindModels,
             bindSelectedCategory,
+            bindScrollToTop,
             bindCategories,
             outputs.bindings
         )
