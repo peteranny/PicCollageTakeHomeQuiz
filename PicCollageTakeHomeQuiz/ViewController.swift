@@ -68,9 +68,16 @@ class ViewController: UIViewController {
                 base?.fontSelector == nil ? base?.installFontSelector() : base?.uninstallFontSelector()
             }
 
+        // Dismiss the font selector on tapping the text view
+        let bindFontSelectorDismissal = textView.didBeginEditingPublisher
+            .sink { [weak base = self] in
+                base?.uninstallFontSelector()
+            }
+
         cancellables.append(contentsOf: [
             bindKeyboardDismissal,
             bindFontSelectorInstallation,
+            bindFontSelectorDismissal,
         ])
     }
 
