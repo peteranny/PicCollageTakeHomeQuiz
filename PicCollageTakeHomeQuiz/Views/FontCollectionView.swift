@@ -47,8 +47,10 @@ class FontCollectionViewCell: UICollectionViewCell {
 
     /// Configure the cell with the provided font context
     /// - Parameter title: The font title
-    func configure(title: String, font: Driver<String?>, state: Driver<FontState?>) {
+    func configure(title: String, font: Driver<String?>, state: Driver<FontState?>, selected: Bool) {
         titleLabel.text = title
+        contentView.layer.borderWidth = 5
+        contentView.layer.borderColor = selected ? UIColor.green.cgColor : UIColor.clear.cgColor
 
         // Respond to font changes
         let bindFont = font
@@ -145,7 +147,7 @@ class FontCollectionView: UICollectionView {
     // The data source that consumes an item to render the cell
     fileprivate let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, model in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCollectionViewCell", for: indexPath) as! FontCollectionViewCell
-        cell.configure(title: model.item.family, font: model.menu, state: model.state)
+        cell.configure(title: model.item.family, font: model.menu, state: model.state, selected: model.selected)
         return cell
     }
 }
