@@ -44,8 +44,13 @@ class FontSelectorViewModel {
 
         // Displays only the items that match the selected category
         let models = Publishers
-            .CombineLatest(modelsRelay, selectedCategoryRelay)
-            .map { models, category in
+            .CombineLatest3(modelsRelay, selectedCategoryRelay, selectedModelRelay)
+            .map { models, category, selected in
+                let models = models.map { model in
+                    var model = model
+                    model.selected = model.item.family == selected?.item.family
+                    return model
+                }
                 switch category {
                 case .all:
                     return models
@@ -57,6 +62,7 @@ class FontSelectorViewModel {
 
         // Binds the inputs
         let bindSelectedCategory = inputs.selectedCategory.sink(receiveValue: { [selectedCategoryRelay] in selectedCategoryRelay.send($0) })
+        let bindSelectedModel = inputs.selectedModel.sink(receiveValue: { [selectedModelRelay] in selectedModelRelay.send($0) })
         let bindSelectedFont = inputs.selectedModel
             .flatMap { [manager] model in Future { try await manager.fetchFont(for: model.item) }.catch { _ in Empty() } }
             .sink { [fontObserver] in _ = fontObserver.receive($0) }
@@ -68,6 +74,7 @@ class FontSelectorViewModel {
             models: models,
             bindings: [
                 bindSelectedCategory,
+                bindSelectedModel,
                 bindSelectedFont,
             ]
         )
@@ -85,7 +92,8 @@ class FontSelectorViewModel {
                     return FontModel(
                         item: item,
                         menu: manager.menuDriver(for: item),
-                        state: manager.fontStateDriver(for: item)
+                        state: manager.fontStateDriver(for: item),
+                        selected: false
                     )
                 }
             }
@@ -99,5 +107,6 @@ class FontSelectorViewModel {
     private let fontObserver: AnySubscriber<String, Never>
     private let modelsRelay = CurrentValueSubject<[FontModel], Never>([])
     private let selectedCategoryRelay = CurrentValueSubject<FontCategory, Never>(.all)
+    private let selectedModelRelay = CurrentValueSubject<FontModel?, Never>(nil)
     private var cancellables: [AnyCancellable] = []
 }

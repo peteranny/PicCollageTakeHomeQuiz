@@ -32,8 +32,10 @@ class FontCollectionViewCell: UICollectionViewCell {
 
     /// Configure the cell with the provided font context
     /// - Parameter title: The font title
-    func configure(title: String, font: AnyPublisher<String?, Never>, state: AnyPublisher<FontState?, Never>) {
+    func configure(title: String, font: AnyPublisher<String?, Never>, state: AnyPublisher<FontState?, Never>, selected: Bool) {
         titleLabel.text = title
+        contentView.layer.borderWidth = 5
+        contentView.layer.borderColor = selected ? UIColor.green.cgColor : UIColor.clear.cgColor
 
         // Respond to font changes
         let bindFont = font
@@ -133,6 +135,6 @@ class FontCollectionView: UICollectionView {
 
     // The data source that consumes an item to render the cell
     private(set) lazy var subscriber: AnySubscriber<[FontModel], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, model in
-        cell.configure(title: model.item.family, font: model.menu, state: model.state)
+        cell.configure(title: model.item.family, font: model.menu, state: model.state, selected: model.selected)
     }
 }
