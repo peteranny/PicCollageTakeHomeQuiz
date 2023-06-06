@@ -10,8 +10,8 @@ import CombineCocoa
 import UIKit
 
 class ViewController: UIViewController {
-    init(fontSelectorViewModel: FontSelectorViewModel) {
-        self.fontSelectorViewModel = fontSelectorViewModel
+    init(manager: FontManager) {
+        self.manager = manager
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -79,7 +79,16 @@ class ViewController: UIViewController {
             return
         }
 
-        let viewController = FontSelectorViewController(viewModel: fontSelectorViewModel)
+        let fontBinder: AnySubscriber<String, Never> = AnySubscriber(receiveValue: { [base = textView] fontName in
+            DispatchQueue.main.async {
+                let fontSize = base.font?.pointSize ?? 0
+                base.font = UIFont(name: fontName, size: fontSize)
+            }
+            return .unlimited
+        })
+
+        let viewModel = FontSelectorViewModel(manager: manager, fontObserver: fontBinder)
+        let viewController = FontSelectorViewController(viewModel: viewModel)
         viewController.view.layer.shadowColor = UIColor.gray.cgColor
         viewController.view.layer.shadowOpacity = 1
         viewController.view.layer.shadowOffset = .zero
@@ -129,7 +138,7 @@ class ViewController: UIViewController {
         })
     }
 
-    private let fontSelectorViewModel: FontSelectorViewModel
+    private let manager: FontManager
     private let textView = TextView(placeholder: "Enter some text here")
     private let fontButton = FontButton()
     private var fontSelector: UIViewController?

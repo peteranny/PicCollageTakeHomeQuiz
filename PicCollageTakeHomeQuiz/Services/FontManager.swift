@@ -139,9 +139,26 @@ class FontManager {
     }
 
     /// Fetch the font for the given font item
-    func fetchFont(for item: FontItem) {
+    func fetchFont(for item: FontItem) async throws -> String {
         // Invoked with the queue to prevent race condition on duplication
         loadingQueue.async { self.loadFont(for: item, fetchIfNeeded: true) }
+
+        // Return the steram that does not emit the font until it is ready
+        return try await statesRelay
+            .map { $0[item.family] }
+            .tryCompactMap { state -> String? in
+                switch state {
+                case .downloaded(let name):
+                    return name
+                case .downloadFailed:
+                    throw NSError(domain: "FontManager", code: 0)
+                case .downloading, .none:
+                    return nil
+                }
+            }
+            .first()
+            .asFuture()
+            .value
     }
 
     /// Load the font for the given font URL

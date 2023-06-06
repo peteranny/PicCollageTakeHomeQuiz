@@ -57,10 +57,9 @@ class FontSelectorViewModel {
 
         // Binds the inputs
         let bindSelectedCategory = inputs.selectedCategory.sink(receiveValue: { [selectedCategoryRelay] in selectedCategoryRelay.send($0) })
-        let bindSelectedModel = inputs.selectedModel
-            .sink { [manager] model in
-                manager.fetchFont(for: model.item)
-            }
+        let bindSelectedFont = inputs.selectedModel
+            .flatMap { [manager] model in Future { try await manager.fetchFont(for: model.item) }.catch { _ in Empty() } }
+            .sink { [fontObserver] in _ = fontObserver.receive($0) }
 
         // Return the outputs
         return Outputs(
@@ -69,13 +68,14 @@ class FontSelectorViewModel {
             models: models,
             bindings: [
                 bindSelectedCategory,
-                bindSelectedModel,
+                bindSelectedFont,
             ]
         )
     }
 
-    init(manager: FontManager) {
+    init(manager: FontManager, fontObserver: AnySubscriber<String, Never>) {
         self.manager = manager
+        self.fontObserver = fontObserver
 
         // Fetch the items to be displayed
         Future(manager.fetchItems)
@@ -96,6 +96,7 @@ class FontSelectorViewModel {
     // MARK: - Private
 
     private let manager: FontManager
+    private let fontObserver: AnySubscriber<String, Never>
     private let modelsRelay = CurrentValueSubject<[FontModel], Never>([])
     private let selectedCategoryRelay = CurrentValueSubject<FontCategory, Never>(.all)
     private var cancellables: [AnyCancellable] = []

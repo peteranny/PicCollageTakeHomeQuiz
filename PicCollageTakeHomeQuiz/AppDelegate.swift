@@ -18,8 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow()
 
         let manager = FontManager()
-        let fontSelectorViewModel = FontSelectorViewModel(manager: manager)
-        window.rootViewController = ViewController(fontSelectorViewModel: fontSelectorViewModel)
+        window.rootViewController = ViewController(manager: manager)
         window.makeKeyAndVisible()
 
         self.window = window
