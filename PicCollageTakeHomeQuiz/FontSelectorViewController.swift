@@ -82,6 +82,8 @@ class FontSelectorViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .assign(to: \.selectedIdentifier, on: segmentationControl)
 
+        let bindScrollToTop = outputs.selectedCategory.map { _ in .zero }.assign(to: \.contentOffset, on: collectionView)
+
         let bindCategories = outputs.categories
             .map { $0.map { SegmentationControl.Item(title: $0.title, identifier: $0.title) } } // Each category maps to a
             .receive(on: DispatchQueue.main)
@@ -90,6 +92,7 @@ class FontSelectorViewController: UIViewController {
         cancellables.append(contentsOf: [
             bindModels,
             bindSelectedCategory,
+            bindScrollToTop,
             bindCategories,
         ] + outputs.bindings)
     }
