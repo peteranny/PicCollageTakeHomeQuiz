@@ -85,13 +85,7 @@ class ViewController: UIViewController {
             return
         }
 
-        let fontBinder: Binder<String> = Binder(textView) { base, fontName in
-            let fontSize = base.font?.pointSize ?? 0
-            base.font = UIFont(name: fontName, size: fontSize)
-        }
-
-        let viewModel = FontSelectorViewModel(manager: manager, fontObserver: fontBinder.asObserver())
-        let viewController = FontSelectorViewController(viewModel: viewModel)
+        let viewController = FontSelectorViewController(viewModel: fontSelectorViewModel)
         viewController.view.layer.shadowColor = UIColor.gray.cgColor
         viewController.view.layer.shadowOpacity = 1
         viewController.view.layer.shadowOffset = .zero
@@ -140,6 +134,15 @@ class ViewController: UIViewController {
             self.fontSelector = nil
         })
     }
+
+    private lazy var fontSelectorViewModel: FontSelectorViewModel = {
+        let fontBinder: Binder<String> = Binder(textView) { base, fontName in
+            let fontSize = base.font?.pointSize ?? 0
+            base.font = UIFont(name: fontName, size: fontSize)
+        }
+
+        return FontSelectorViewModel(manager: manager, fontObserver: fontBinder.asObserver())
+    }()
 
     private let manager: FontManager
     private let textView = TextView(placeholder: "Enter some text here")

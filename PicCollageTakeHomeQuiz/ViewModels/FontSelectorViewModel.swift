@@ -43,8 +43,13 @@ class FontSelectorViewModel {
 
         // Displays only the items that match the selected category
         let models = Driver
-            .combineLatest(modelsRelay.asDriver(), selectedCategoryRelay.asDriver())
-            .map { models, category in
+            .combineLatest(modelsRelay.asDriver(), selectedCategoryRelay.asDriver(), selectedModelRelay.asDriver())
+            .map { models, category, selected in
+                let models = models.map { model in
+                    var model = model
+                    model.selected = model.item.family == selected?.item.family
+                    return model
+                }
                 switch category {
                 case .all:
                     return models
@@ -55,6 +60,7 @@ class FontSelectorViewModel {
 
         // Binds the inputs
         let bindSelectedCategory = inputs.selectedCategory.bind(to: selectedCategoryRelay)
+        let bindSelectedModel = inputs.selectedModel.bind(to: selectedModelRelay)
         let bindSelectedFont = inputs.selectedModel
             .flatMapLatest { [manager] model in manager.fetchFont(for: model.item) }
             .bind(to: fontObserver)
@@ -66,6 +72,7 @@ class FontSelectorViewModel {
             models: models,
             bindings: Disposables.create(
                 bindSelectedCategory,
+                bindSelectedModel,
                 bindSelectedFont
             )
         )
@@ -84,7 +91,8 @@ class FontSelectorViewModel {
                     return FontModel(
                         item: item,
                         menu: manager.menuDriver(for: item),
-                        state: manager.fontStateDriver(for: item)
+                        state: manager.fontStateDriver(for: item),
+                        selected: false
                     )
                 }
             }
@@ -99,5 +107,6 @@ class FontSelectorViewModel {
     private let fontObserver: AnyObserver<String>
     private let modelsRelay = BehaviorRelay<[FontModel]>(value: [])
     private let selectedCategoryRelay = BehaviorRelay<FontCategory>(value: .all)
+    private let selectedModelRelay = BehaviorRelay<FontModel?>(value: nil)
     private let disposeBag = DisposeBag()
 }
