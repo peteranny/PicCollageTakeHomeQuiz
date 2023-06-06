@@ -18,6 +18,9 @@
 		E3B56AB22A2E42230044E5A9 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB12A2E42230044E5A9 /* FontLoader.swift */; };
 		E3B56AB62A2F2AA00044E5A9 /* FontCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */; };
 		E3D1EFE22A2F9E1200C082EF /* FontModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFE12A2F9E1200C082EF /* FontModel.swift */; };
+		E3D1EFD82A2F7EDA00C082EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFD72A2F7EDA00C082EF /* ViewController.swift */; };
+		E3D1EFDA2A2F882B00C082EF /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFD92A2F882B00C082EF /* TextView.swift */; };
+		E3D1EFDC2A2F8A9A00C082EF /* FontButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFDB2A2F8A9A00C082EF /* FontButton.swift */; };
 		E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25662A284F95006F6CD0 /* AppDelegate.swift */; };
 		E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */; };
 		E3FF25702A284F96006F6CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FF256F2A284F96006F6CD0 /* Assets.xcassets */; };
@@ -63,6 +66,9 @@
 		E3B56AB12A2E42230044E5A9 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCategory.swift; sourceTree = "<group>"; };
 		E3D1EFE12A2F9E1200C082EF /* FontModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontModel.swift; sourceTree = "<group>"; };
+		E3D1EFD72A2F7EDA00C082EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E3D1EFD92A2F882B00C082EF /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		E3D1EFDB2A2F8A9A00C082EF /* FontButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontButton.swift; sourceTree = "<group>"; };
 		E3FF25632A284F95006F6CD0 /* PicCollageTakeHomeQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicCollageTakeHomeQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25662A284F95006F6CD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +144,8 @@
 				E305813E2A29AACA00C61B99 /* SegmentationControl.swift */,
 				E30581402A29AE1300C61B99 /* FontCollectionView.swift */,
 				E30581422A29B16D00C61B99 /* SolidLineView.swift */,
+				E3D1EFD92A2F882B00C082EF /* TextView.swift */,
+				E3D1EFDB2A2F8A9A00C082EF /* FontButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -197,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				E3FF25662A284F95006F6CD0 /* AppDelegate.swift */,
+				E3D1EFD72A2F7EDA00C082EF /* ViewController.swift */,
 				E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */,
 				E30581472A29CA2200C61B99 /* Models */,
 				E30581482A29CA2B00C61B99 /* Services */,
@@ -486,11 +495,14 @@
 				E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */,
 				E360338D2A30D45900676589 /* FontStorage.swift in Sources */,
 				E3D1EFE22A2F9E1200C082EF /* FontModel.swift in Sources */,
+				E3D1EFDA2A2F882B00C082EF /* TextView.swift in Sources */,
 				E3B56AB22A2E42230044E5A9 /* FontLoader.swift in Sources */,
+				E3D1EFDC2A2F8A9A00C082EF /* FontButton.swift in Sources */,
 				E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */,
 				E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */,
 				E3FF25992A29A4E5006F6CD0 /* FontSelectorViewModel.swift in Sources */,
 				E3B56AB62A2F2AA00044E5A9 /* FontCategory.swift in Sources */,
+				E3D1EFD82A2F7EDA00C082EF /* ViewController.swift in Sources */,
 				E3FF25972A28528F006F6CD0 /* FontManager.swift in Sources */,
 				E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */,
 				E305814E2A29CE1E00C61B99 /* FontItem.swift in Sources */,
