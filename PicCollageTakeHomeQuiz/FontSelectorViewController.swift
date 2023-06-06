@@ -6,7 +6,9 @@
 //
 
 import Combine
+import CombineCocoa
 import CombineDataSources
+import Entwine
 import UIKit
 
 class FontSelectorViewController: UIViewController {
@@ -67,15 +69,24 @@ class FontSelectorViewController: UIViewController {
             .map({ FontCategory(rawValue: $0) })
             .eraseToAnyPublisher()
 
+        let models = CurrentValueSubject<[FontModel], Never>([])
+
+        let selectedModel = collectionView.didSelectItemPublisher
+            .withLatest(from: models.eraseToAnyPublisher(), transform: { ($0, $1) })
+            .map { indexPath, models in models[indexPath.item] }
+            .eraseToAnyPublisher()
+
         let inputs = FontSelectorViewModel.Inputs(
-            selectedCategory: selectedCategory
+            selectedCategory: selectedCategory,
+            selectedModel: selectedModel
         )
 
         // Binds the inputs and gets the outputs
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
-        let bindModels = outputs.models.receive(on: DispatchQueue.main).bind(subscriber: collectionView.subscriber)
+        let bindModels = outputs.models.sink { models.send($0) }
+        let bindCollection = models.receive(on: DispatchQueue.main).bind(subscriber: collectionView.subscriber)
 
         let bindSelectedCategory = outputs.selectedCategory
             .map({ $0.title })
@@ -91,6 +102,7 @@ class FontSelectorViewController: UIViewController {
 
         cancellables.append(contentsOf: [
             bindModels,
+            bindCollection,
             bindSelectedCategory,
             bindScrollToTop,
             bindCategories,

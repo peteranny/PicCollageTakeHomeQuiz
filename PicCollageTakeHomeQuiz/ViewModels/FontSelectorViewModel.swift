@@ -12,6 +12,9 @@ class FontSelectorViewModel {
     struct Inputs {
         // The changes to the selected category
         let selectedCategory: AnyPublisher<FontCategory, Never>
+
+        // The selected model
+        let selectedModel: AnyPublisher<FontModel, Never>
     }
 
     struct Outputs {
@@ -54,13 +57,20 @@ class FontSelectorViewModel {
 
         // Binds the inputs
         let bindSelectedCategory = inputs.selectedCategory.sink(receiveValue: { [selectedCategoryRelay] in selectedCategoryRelay.send($0) })
+        let bindSelectedModel = inputs.selectedModel
+            .sink { [manager] model in
+                manager.fetchFont(for: model.item)
+            }
 
         // Return the outputs
         return Outputs(
             categories: categories,
             selectedCategory: selectedCategoryRelay.eraseToAnyPublisher(),
             models: models,
-            bindings: [bindSelectedCategory]
+            bindings: [
+                bindSelectedCategory,
+                bindSelectedModel,
+            ]
         )
     }
 
@@ -74,7 +84,8 @@ class FontSelectorViewModel {
                     // Form the model with drivers
                     return FontModel(
                         item: item,
-                        menu: manager.menuDriver(for: item)
+                        menu: manager.menuDriver(for: item),
+                        state: manager.fontStateDriver(for: item)
                     )
                 }
             }

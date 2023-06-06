@@ -32,7 +32,27 @@ struct FontItem: Hashable, Decodable {
     let lastModified: String
 
     /// The font family files (with all supported scripts) for each one of the available variants.
-    let files: [String: String]
+    let files: [File: URL]
+    enum File: String {
+        case regular
+        case italic
+        case oneHundred = "100"
+        case oneHundredItalic = "100italic"
+        case twoHundred = "200"
+        case twoHundredItalic = "200italic"
+        case threeHundred = "300"
+        case threeHundredItalic = "300italic"
+        case fiveHundred = "500"
+        case fiveHundredItalic = "500italic"
+        case sixHundred = "600"
+        case sixHundredItalic = "600italic"
+        case sevenHundred = "700"
+        case sevenHundredItalic = "700italic"
+        case eightHundred = "800"
+        case eightHundredItalic = "800italic"
+        case nineHundred = "900"
+        case nineHundredItalic = "900italic"
+    }
 
     /// XXX: No documentation, but I assume it's a rough category for the font family
     let category: String
@@ -61,7 +81,15 @@ struct FontItem: Hashable, Decodable {
         self.variants = try container.decode([String].self, forKey: .variants)
         self.version = try container.decode(String.self, forKey: .version)
         self.lastModified = try container.decode(String.self, forKey: .lastModified)
-        self.files = try container.decode([String: String].self, forKey: .files)
+
+        let files = try container.decode([String: String].self, forKey: .files)
+        self.files = Dictionary(files.compactMap({ key, value -> (File, URL)? in
+            guard let key = File(rawValue: key), let value = URL(string: value) else {
+                return nil
+            }
+            return (key, value)
+        }), uniquingKeysWith: { $1 })
+
         self.category = try container.decode(String.self, forKey: .category)
     }
 

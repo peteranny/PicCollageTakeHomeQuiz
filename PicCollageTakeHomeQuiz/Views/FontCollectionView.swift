@@ -32,11 +32,11 @@ class FontCollectionViewCell: UICollectionViewCell {
 
     /// Configure the cell with the provided font context
     /// - Parameter title: The font title
-    func configure(title: String, font: AnyPublisher<String?, Never>) {
+    func configure(title: String, font: AnyPublisher<String?, Never>, state: AnyPublisher<FontState?, Never>) {
         titleLabel.text = title
 
         // Respond to font changes
-        font
+        let bindFont = font
             .map { [fontSize = titleLabel.font.pointSize] font in
                 guard let font else {
                     return nil
@@ -45,7 +45,25 @@ class FontCollectionViewCell: UICollectionViewCell {
             }
             .receive(on: DispatchQueue.main)
             .assign(to: \.font, on: titleLabel)
-            .store(in: &cancellables)
+
+        // Respond to the state
+        let bindButtonHidden = state
+            .map { $0.map { $0.isDownloaded || $0.isDownloading } ?? false }
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.isHidden, on: downloadButton)
+
+        let bindDownloadingHidden = state
+            .map { $0?.isDownloading == true }
+            .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { [spinner] in $0 ? spinner.startAnimating() : spinner.stopAnimating() })
+            .map(!)
+            .assign(to: \.isHidden, on: spinner)
+
+        cancellables.append(contentsOf: [
+            bindFont,
+            bindButtonHidden,
+            bindDownloadingHidden,
+        ])
     }
 
     // MARK: - Private
@@ -59,11 +77,33 @@ class FontCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        ])
+
+        // Install the download button
+        contentView.addSubview(downloadButton)
+        downloadButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            downloadButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            downloadButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),
+            downloadButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        ])
+        downloadButton.setImage(.init(systemName: "square.and.arrow.down"), for: .normal)
+        downloadButton.tintColor = .black
+        downloadButton.setContentHuggingPriority(.required, for: .horizontal)
+        downloadButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        // Install the download button
+        contentView.addSubview(spinner)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            spinner.centerYAnchor.constraint(equalTo: downloadButton.centerYAnchor),
+            spinner.centerXAnchor.constraint(equalTo: downloadButton.centerXAnchor),
         ])
     }
 
     private let titleLabel = UILabel()
+    private let downloadButton = UIButton()
+    private let spinner = UIActivityIndicatorView()
     private var cancellables: [AnyCancellable] = []
 }
 
@@ -93,7 +133,6 @@ class FontCollectionView: UICollectionView {
 
     // The data source that consumes an item to render the cell
     private(set) lazy var subscriber: AnySubscriber<[FontModel], Never> = itemsSubscriber(cellIdentifier: "FontCollectionViewCell", cellType: FontCollectionViewCell.self) { cell, indexPath, model in
-        cell.configure(title: model.item.family, font: model.menu)
+        cell.configure(title: model.item.family, font: model.menu, state: model.state)
     }
-
 }

@@ -11,6 +11,7 @@ import UIKit
 struct FontModel: Equatable, Hashable {
     let item: FontItem
     let menu: AnyPublisher<String?, Never>
+    let state: AnyPublisher<FontState?, Never>
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(item)

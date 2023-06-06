@@ -124,4 +124,74 @@ class FontManager {
 
     private let loadingQueue = DispatchQueue(label: "FontManager.loadingQueue")
     private let menusRelay = CurrentValueSubject<[String: String], Never>([:])
+
+    // MARK: - Font State
+
+    /// Returns the font state driver for the given font item
+    func fontStateDriver(for item: FontItem) -> AnyPublisher<FontState?, Never> {
+        statesRelay
+            .map { $0[item.family] }
+            .handleEvents(receiveSubscription: { [weak self] _ in
+                // Invoked with the queue to prevent race condition on the stored menus
+                self?.loadingQueue.async { self?.loadFont(for: item, fetchIfNeeded: false) }
+            })
+            .eraseToAnyPublisher()
+    }
+
+    /// Fetch the font for the given font item
+    func fetchFont(for item: FontItem) {
+        // Invoked with the queue to prevent race condition on duplication
+        loadingQueue.async { self.loadFont(for: item, fetchIfNeeded: true) }
+    }
+
+    /// Load the font for the given font URL
+    /// No-op when the font has been loaded
+    private func loadFont(for item: FontItem, fetchIfNeeded: Bool) {
+        guard fontState(for: item) == nil else {
+            // Early return if there has been the font
+            return
+        }
+
+        setFontState(.downloading, for: item)
+
+        let data: Data
+        if let cached = FontStorage.font(for: item.family) {
+            // Load the local cached font data
+            data = cached
+        } else if fetchIfNeeded == false {
+            // Do nothing if no need to fetch
+            setFontState(nil, for: item)
+            return
+        } else if let url = item.files.values.first, let loaded = try? Data(contentsOf: url) {
+            // Download the font data and cache it
+            FontStorage.setFont(loaded, for: item.family)
+            data = loaded
+        } else {
+            setFontState(.downloadFailed, for: item)
+            return
+        }
+
+        guard let font = FontLoader.loadFont(for: data as NSData) else {
+            setFontState(.downloadFailed, for: item)
+            return
+        }
+
+        setFontState(.downloaded(name: font), for: item)
+    }
+
+    private func fontState(for item: FontItem) -> FontState? {
+        stateQueue.sync {
+            statesRelay.value[item.family]
+        }
+    }
+
+    private func setFontState(_ fontState: FontState?, for item: FontItem) {
+        stateQueue.async { [statesRelay] in
+            var states = statesRelay.value
+            states[item.family] = fontState
+            statesRelay.send(states)
+        }
+    }
+
+    private let statesRelay = CurrentValueSubject<[String: FontState], Never>([:])
 }

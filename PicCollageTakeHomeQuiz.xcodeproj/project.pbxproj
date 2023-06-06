@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7212F3142A81F2E100FA9718 /* Combine+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7212F3132A81F2E100FA9718 /* Combine+Future.swift */; };
 		7265BA172A84B67F003D91C7 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA162A84B67F003D91C7 /* CombineCocoa */; };
 		7265BA1A2A84B68B003D91C7 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA192A84B68B003D91C7 /* CombineDataSources */; };
 		7265BA1D2A84B699003D91C7 /* Entwine in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA1C2A84B699003D91C7 /* Entwine */; };
 		7265BA1F2A84B699003D91C7 /* EntwineTest in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA1E2A84B699003D91C7 /* EntwineTest */; };
-		7212F3142A81F2E100FA9718 /* Combine+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7212F3132A81F2E100FA9718 /* Combine+Future.swift */; };
 		E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305813E2A29AACA00C61B99 /* SegmentationControl.swift */; };
 		E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581402A29AE1300C61B99 /* FontCollectionView.swift */; };
 		E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581422A29B16D00C61B99 /* SolidLineView.swift */; };
@@ -20,10 +20,11 @@
 		E3B56AAE2A2E35DF0044E5A9 /* FontResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */; };
 		E3B56AB22A2E42230044E5A9 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB12A2E42230044E5A9 /* FontLoader.swift */; };
 		E3B56AB62A2F2AA00044E5A9 /* FontCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */; };
-		E3D1EFE22A2F9E1200C082EF /* FontModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFE12A2F9E1200C082EF /* FontModel.swift */; };
 		E3D1EFD82A2F7EDA00C082EF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFD72A2F7EDA00C082EF /* ViewController.swift */; };
 		E3D1EFDA2A2F882B00C082EF /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFD92A2F882B00C082EF /* TextView.swift */; };
 		E3D1EFDC2A2F8A9A00C082EF /* FontButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFDB2A2F8A9A00C082EF /* FontButton.swift */; };
+		E3D1EFDE2A2F9B4E00C082EF /* FontState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFDD2A2F9B4E00C082EF /* FontState.swift */; };
+		E3D1EFE22A2F9E1200C082EF /* FontModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3D1EFE12A2F9E1200C082EF /* FontModel.swift */; };
 		E3FF25672A284F95006F6CD0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF25662A284F95006F6CD0 /* AppDelegate.swift */; };
 		E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */; };
 		E3FF25702A284F96006F6CD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E3FF256F2A284F96006F6CD0 /* Assets.xcassets */; };
@@ -62,10 +63,11 @@
 		E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontResponse.swift; sourceTree = "<group>"; };
 		E3B56AB12A2E42230044E5A9 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCategory.swift; sourceTree = "<group>"; };
-		E3D1EFE12A2F9E1200C082EF /* FontModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontModel.swift; sourceTree = "<group>"; };
 		E3D1EFD72A2F7EDA00C082EF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E3D1EFD92A2F882B00C082EF /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		E3D1EFDB2A2F8A9A00C082EF /* FontButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontButton.swift; sourceTree = "<group>"; };
+		E3D1EFDD2A2F9B4E00C082EF /* FontState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontState.swift; sourceTree = "<group>"; };
+		E3D1EFE12A2F9E1200C082EF /* FontModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontModel.swift; sourceTree = "<group>"; };
 		E3FF25632A284F95006F6CD0 /* PicCollageTakeHomeQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicCollageTakeHomeQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3FF25662A284F95006F6CD0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3FF256A2A284F95006F6CD0 /* FontSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			children = (
 				E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */,
 				E3D1EFE12A2F9E1200C082EF /* FontModel.swift */,
+				E3D1EFDD2A2F9B4E00C082EF /* FontState.swift */,
 				E305814D2A29CE1E00C61B99 /* FontItem.swift */,
 				E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */,
 			);
@@ -356,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3FF256B2A284F95006F6CD0 /* FontSelectorViewController.swift in Sources */,
+				E3D1EFDE2A2F9B4E00C082EF /* FontState.swift in Sources */,
 				E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */,
 				E360338D2A30D45900676589 /* FontStorage.swift in Sources */,
 				E3D1EFE22A2F9E1200C082EF /* FontModel.swift in Sources */,
