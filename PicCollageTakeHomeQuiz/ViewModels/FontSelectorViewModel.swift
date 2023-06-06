@@ -55,10 +55,9 @@ class FontSelectorViewModel {
 
         // Binds the inputs
         let bindSelectedCategory = inputs.selectedCategory.bind(to: selectedCategoryRelay)
-        let bindSelectedModel = inputs.selectedModel
-            .subscribe(with: manager, onNext: { manager, model in
-                manager.fetchFont(for: model.item)
-            })
+        let bindSelectedFont = inputs.selectedModel
+            .flatMapLatest { [manager] model in manager.fetchFont(for: model.item) }
+            .bind(to: fontObserver)
 
         // Return the outputs
         return Outputs(
@@ -67,13 +66,14 @@ class FontSelectorViewModel {
             models: models,
             bindings: Disposables.create(
                 bindSelectedCategory,
-                bindSelectedModel
+                bindSelectedFont
             )
         )
     }
 
-    init(manager: FontManager) {
+    init(manager: FontManager, fontObserver: AnyObserver<String>) {
         self.manager = manager
+        self.fontObserver = fontObserver
 
         // Fetch the items to be displayed
         manager
@@ -96,6 +96,7 @@ class FontSelectorViewModel {
     // MARK: - Private
 
     private let manager: FontManager
+    private let fontObserver: AnyObserver<String>
     private let modelsRelay = BehaviorRelay<[FontModel]>(value: [])
     private let selectedCategoryRelay = BehaviorRelay<FontCategory>(value: .all)
     private let disposeBag = DisposeBag()

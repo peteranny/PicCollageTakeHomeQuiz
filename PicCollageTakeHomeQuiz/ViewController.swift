@@ -9,8 +9,8 @@ import RxSwift
 import UIKit
 
 class ViewController: UIViewController {
-    init(fontSelectorViewModel: FontSelectorViewModel) {
-        self.fontSelectorViewModel = fontSelectorViewModel
+    init(manager: FontManager) {
+        self.manager = manager
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -78,7 +78,13 @@ class ViewController: UIViewController {
             return
         }
 
-        let viewController = FontSelectorViewController(viewModel: fontSelectorViewModel)
+        let fontBinder: Binder<String> = Binder(textView) { base, fontName in
+            let fontSize = base.font?.pointSize ?? 0
+            base.font = UIFont(name: fontName, size: fontSize)
+        }
+
+        let viewModel = FontSelectorViewModel(manager: manager, fontObserver: fontBinder.asObserver())
+        let viewController = FontSelectorViewController(viewModel: viewModel)
         viewController.view.layer.shadowColor = UIColor.gray.cgColor
         viewController.view.layer.shadowOpacity = 1
         viewController.view.layer.shadowOffset = .zero
@@ -128,7 +134,7 @@ class ViewController: UIViewController {
         })
     }
 
-    private let fontSelectorViewModel: FontSelectorViewModel
+    private let manager: FontManager
     private let textView = TextView(placeholder: "Enter some text here")
     private let fontButton = FontButton()
     private var fontSelector: UIViewController?
