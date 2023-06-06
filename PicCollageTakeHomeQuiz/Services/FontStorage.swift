@@ -14,6 +14,7 @@ enum FontStorage {
         static let request = "request"
         static let requestDate = "request:date"
         static let menuPrefix = "menu:"
+        static let fontPrefix = "font:"
     }
 
     // MARK: - Request
@@ -43,5 +44,15 @@ enum FontStorage {
 
     static func setMenu(_ data: Data, for family: String) {
         storage.setValue(data, forKey: Key.menuPrefix + family)
+    }
+
+    // MARK: - Font
+
+    static func font(for family: String) -> Data? {
+        storage.data(forKey: Key.fontPrefix + family)
+    }
+
+    static func setFont(_ data: Data, for family: String) {
+        storage.setValue(data, forKey: Key.fontPrefix + family)
     }
 }

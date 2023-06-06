@@ -12,6 +12,9 @@ class FontSelectorViewModel {
     struct Inputs {
         // The changes to the selected category
         let selectedCategory: Observable<FontCategory>
+
+        // The selected model
+        let selectedModel: Observable<FontModel>
     }
 
     struct Outputs {
@@ -52,13 +55,20 @@ class FontSelectorViewModel {
 
         // Binds the inputs
         let bindSelectedCategory = inputs.selectedCategory.bind(to: selectedCategoryRelay)
+        let bindSelectedModel = inputs.selectedModel
+            .subscribe(with: manager, onNext: { manager, model in
+                manager.fetchFont(for: model.item)
+            })
 
         // Return the outputs
         return Outputs(
             categories: categories,
             selectedCategory: selectedCategoryRelay.asDriver(),
             models: models,
-            bindings: bindSelectedCategory
+            bindings: Disposables.create(
+                bindSelectedCategory,
+                bindSelectedModel
+            )
         )
     }
 
@@ -73,7 +83,8 @@ class FontSelectorViewModel {
                     // Form the model with drivers
                     return FontModel(
                         item: item,
-                        menu: manager.menuDriver(for: item)
+                        menu: manager.menuDriver(for: item),
+                        state: manager.fontStateDriver(for: item)
                     )
                 }
             }

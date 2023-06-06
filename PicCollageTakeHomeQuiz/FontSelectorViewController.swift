@@ -66,8 +66,11 @@ class FontSelectorViewController: UIViewController {
             .compactMap({ $0 })
             .map({ FontCategory(rawValue: $0) })
 
+        let selectedModel = collectionView.rx.modelSelected
+
         let inputs = FontSelectorViewModel.Inputs(
-            selectedCategory: selectedCategory
+            selectedCategory: selectedCategory,
+            selectedModel: selectedModel
         )
 
         // Binds the inputs and gets the outputs

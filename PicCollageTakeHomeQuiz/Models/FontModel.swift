@@ -11,4 +11,5 @@ import UIKit
 struct FontModel {
     let item: FontItem
     let menu: Driver<String?>
+    let state: Driver<FontState?>
 }
