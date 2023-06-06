@@ -47,11 +47,11 @@ class FontCollectionViewCell: UICollectionViewCell {
 
     /// Configure the cell with the provided font context
     /// - Parameter title: The font title
-    func configure(title: String, font: Driver<String?>) {
+    func configure(title: String, font: Driver<String?>, state: Driver<FontState?>) {
         titleLabel.text = title
 
         // Respond to font changes
-        font
+        let bindFont = font
             .map { [fontSize = titleLabel.font.pointSize] font in
                 guard let font else {
                     return nil
@@ -59,7 +59,22 @@ class FontCollectionViewCell: UICollectionViewCell {
                 return UIFont(name: font, size: fontSize)
             }
             .drive(titleLabel.rx.font)
-            .disposed(by: disposeBag)
+
+        // Respond to the state
+        let bindButtonHidden = state
+            .map { $0.map { $0.isDownloaded || $0.isDownloading } ?? false }
+            .drive(downloadButton.rx.isHidden)
+
+        let bindDownloadingHidden = state
+            .map { $0?.isDownloading == true }
+            .do(onNext: { [spinner] in $0 ? spinner.startAnimating() : spinner.stopAnimating() })
+            .drive(spinner.rx.isHidden.mapObserver(!))
+
+        disposeBag.insert(
+            bindFont,
+            bindButtonHidden,
+            bindDownloadingHidden
+        )
     }
 
     // MARK: - Private
@@ -73,11 +88,33 @@ class FontCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        ])
+
+        // Install the download button
+        contentView.addSubview(downloadButton)
+        downloadButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            downloadButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            downloadButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 4),
+            downloadButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+        ])
+        downloadButton.setImage(.init(systemName: "square.and.arrow.down"), for: .normal)
+        downloadButton.tintColor = .black
+        downloadButton.setContentHuggingPriority(.required, for: .horizontal)
+        downloadButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+        // Install the download button
+        contentView.addSubview(spinner)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            spinner.centerYAnchor.constraint(equalTo: downloadButton.centerYAnchor),
+            spinner.centerXAnchor.constraint(equalTo: downloadButton.centerXAnchor),
         ])
     }
 
     private let titleLabel = UILabel()
+    private let downloadButton = UIButton()
+    private let spinner = UIActivityIndicatorView()
     private var disposeBag = DisposeBag()
 }
 
@@ -108,7 +145,7 @@ class FontCollectionView: UICollectionView {
     // The data source that consumes an item to render the cell
     fileprivate let rxDataSource = RxCollectionViewSectionedReloadDataSource<FontSection> { _, collectionView, indexPath, model in
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FontCollectionViewCell", for: indexPath) as! FontCollectionViewCell
-        cell.configure(title: model.item.family, font: model.menu)
+        cell.configure(title: model.item.family, font: model.menu, state: model.state)
         return cell
     }
 }
@@ -130,5 +167,10 @@ extension Reactive where Base: FontCollectionView {
             return binder(sections)
 
         }
+    }
+
+    /// Returns the stream that emits a model when it's selected
+    var modelSelected: Observable<FontModel> {
+        modelSelected(FontModel.self).asObservable()
     }
 }

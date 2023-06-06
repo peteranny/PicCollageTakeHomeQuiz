@@ -24,6 +24,7 @@ enum FontLoader {
         guard let fontRef = CGFont(provider) else {
             return nil
         }
+        CTFontManagerUnregisterGraphicsFont(fontRef, &error)
         guard CTFontManagerRegisterGraphicsFont(fontRef, &error) else {
             return nil
         }
