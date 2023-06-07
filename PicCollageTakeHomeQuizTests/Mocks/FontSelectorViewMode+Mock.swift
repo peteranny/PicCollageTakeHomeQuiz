@@ -11,8 +11,8 @@ import RxSwift
 
 extension FontSelectorViewModel {
     /// Create a instance with partial inputs as well as the rest being mocked
-    static func mock(manager: MockFontManager) -> FontSelectorViewModel {
-        .init(manager: manager, fontObserver: AnyObserver { _ in })
+    static func mock(manager: MockFontManager, fontObserver: AnyObserver<String> = AnyObserver { _ in }) -> FontSelectorViewModel {
+        .init(manager: manager, fontObserver: fontObserver)
     }
 }
 
