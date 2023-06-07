@@ -12,10 +12,7 @@ enum FontLoader {
     /// Download the font data from the given URL and register it
     /// - Parameter url: The URL to the font data
     /// - Returns: The registered font. Return `nil` when something goes wrong.
-    static func loadFont(for url: URL) -> String? {
-        guard let data = NSData(contentsOf: url) else {
-            return nil
-        }
+    static func loadFont(for data: NSData) -> String? {
         var error: Unmanaged<CFError>?
         let bytes = UnsafePointer<UInt8>(OpaquePointer(data.bytes))
         guard let cfdata = CFDataCreate(nil, bytes, data.length) else {

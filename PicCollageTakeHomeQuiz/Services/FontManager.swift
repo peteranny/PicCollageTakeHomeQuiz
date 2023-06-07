@@ -92,8 +92,19 @@ class FontManager {
             return
         }
 
-        // Load the menu and store it
-        let loaded = FontLoader.loadFont(for: item.menu)
+        let data: Data
+        if let cached = FontStorage.menu(for: item.family) {
+            // Load the local cached menu data
+            data = cached
+        } else if let loaded = try? Data(contentsOf: item.menu) {
+            // Download the menu data and cache it
+            FontStorage.setMenu(loaded, for: item.family)
+            data = loaded
+        } else {
+            return
+        }
+
+        let loaded = FontLoader.loadFont(for: data as NSData)
 
         // Set the menu
         stateQueue.async { [menusRelay] in
