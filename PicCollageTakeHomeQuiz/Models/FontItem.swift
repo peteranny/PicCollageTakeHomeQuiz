@@ -8,7 +8,7 @@
 import Foundation
 
 /// Reference: https://developers.google.com/fonts/docs/developer_api
-struct FontItem: Hashable, Decodable {
+struct FontItem: Hashable {
 
     /// The kind of object, a webfont object
     let kind: String
@@ -56,7 +56,9 @@ struct FontItem: Hashable, Decodable {
 
     /// XXX: No documentation, but I assume it's a rough category for the font family
     let category: String
+}
 
+extension FontItem: Decodable {
     enum CodingKeys: CodingKey {
         case kind
         case family

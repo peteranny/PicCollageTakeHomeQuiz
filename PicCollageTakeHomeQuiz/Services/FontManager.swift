@@ -8,7 +8,14 @@
 import Combine
 import Foundation
 
-class FontManager {
+protocol FontManaging {
+    func fetchItems() async throws -> [FontItem]
+    func menuDriver(for item: FontItem) -> AnyPublisher<String?, Never>
+    func fontStateDriver(for item: FontItem) -> AnyPublisher<FontState?, Never>
+    func fetchFont(for item: FontItem) async throws -> String
+}
+
+class FontManager: FontManaging {
     // MARK: Font items
 
     /// Fetch the font items
