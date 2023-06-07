@@ -44,4 +44,46 @@ class FontSelectorViewModelTests: XCTestCase {
             (200, .input([.all, .specific("a"), .specific("b")])),
         ])
     }
+
+    /// Test if `outputs.selectedCategory` responds to the inputs
+    func test_selectedCategory() {
+        // Set up dependencies
+        let items: [FontItem] = [
+            FontItem.mock(category: "a"),
+            FontItem.mock(category: "b"),
+        ]
+        let manager = FontManager.mock(fetchedItems: items)
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let selectedCategory = PassthroughSubject<FontCategory, Never>()
+        let inputs = FontSelectorViewModel.Inputs.mock(
+            selectedCategory: selectedCategory.eraseToAnyPublisher()
+        )
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let selectedCategoryObserver = ReplaySubject<FontCategory, Never>.createUnbounded()
+        var cancellables: [AnyCancellable] = []
+        cancellables.append(contentsOf: outputs.bindings)
+        cancellables.append(outputs.selectedCategory.sink { selectedCategoryObserver.send($0) })
+
+        // Start steps
+        let scheduler = TestScheduler(initialClock: .zero)
+        let results = scheduler.start {
+            selectedCategory.send(.specific("b"))
+            selectedCategory.send(.specific("a"))
+            selectedCategory.send(.all)
+            return selectedCategoryObserver
+        }
+
+        // Verify the result
+        XCTAssertEqual(results.recordedOutput, [
+            (200, .subscription),
+            (200, .input(.all)),
+            (200, .input(.specific("b"))),
+            (200, .input(.specific("a"))),
+            (200, .input(.all)),
+        ])
+    }
 }
