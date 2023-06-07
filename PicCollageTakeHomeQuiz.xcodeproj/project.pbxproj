@@ -14,6 +14,10 @@
 		E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581422A29B16D00C61B99 /* SolidLineView.swift */; };
 		E305814E2A29CE1E00C61B99 /* FontItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305814D2A29CE1E00C61B99 /* FontItem.swift */; };
 		E360338D2A30D45900676589 /* FontStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E360338C2A30D45900676589 /* FontStorage.swift */; };
+		E3891DD02A3048E200EA74EC /* FontSelectorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3891DCF2A3048E200EA74EC /* FontSelectorViewModelTests.swift */; };
+		E3891DD32A304E9900EA74EC /* FontManager+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3891DD22A304E9900EA74EC /* FontManager+Mock.swift */; };
+		E3891DD52A304ED400EA74EC /* FontItem+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3891DD42A304ED400EA74EC /* FontItem+Mock.swift */; };
+		E3891DD72A30507300EA74EC /* FontSelectorViewMode+Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3891DD62A30507300EA74EC /* FontSelectorViewMode+Mock.swift */; };
 		E3B56AAE2A2E35DF0044E5A9 /* FontResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */; };
 		E3B56AB22A2E42230044E5A9 /* FontLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB12A2E42230044E5A9 /* FontLoader.swift */; };
 		E3B56AB62A2F2AA00044E5A9 /* FontCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */; };
@@ -63,6 +67,10 @@
 		E30581422A29B16D00C61B99 /* SolidLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidLineView.swift; sourceTree = "<group>"; };
 		E305814D2A29CE1E00C61B99 /* FontItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontItem.swift; sourceTree = "<group>"; };
 		E360338C2A30D45900676589 /* FontStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontStorage.swift; sourceTree = "<group>"; };
+		E3891DCF2A3048E200EA74EC /* FontSelectorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectorViewModelTests.swift; sourceTree = "<group>"; };
+		E3891DD22A304E9900EA74EC /* FontManager+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontManager+Mock.swift"; sourceTree = "<group>"; };
+		E3891DD42A304ED400EA74EC /* FontItem+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontItem+Mock.swift"; sourceTree = "<group>"; };
+		E3891DD62A30507300EA74EC /* FontSelectorViewMode+Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FontSelectorViewMode+Mock.swift"; sourceTree = "<group>"; };
 		E3B56AAD2A2E35DF0044E5A9 /* FontResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontResponse.swift; sourceTree = "<group>"; };
 		E3B56AB12A2E42230044E5A9 /* FontLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLoader.swift; sourceTree = "<group>"; };
 		E3B56AB52A2F2AA00044E5A9 /* FontCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontCategory.swift; sourceTree = "<group>"; };
@@ -174,6 +182,16 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		E3891DD12A304E8600EA74EC /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				E3891DD42A304ED400EA74EC /* FontItem+Mock.swift */,
+				E3891DD22A304E9900EA74EC /* FontManager+Mock.swift */,
+				E3891DD62A30507300EA74EC /* FontSelectorViewMode+Mock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 		E3B56AB42A2F0CC60044E5A9 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				E3FF257D2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift */,
+				E3891DCF2A3048E200EA74EC /* FontSelectorViewModelTests.swift */,
+				E3891DD12A304E8600EA74EC /* Mocks */,
 			);
 			path = PicCollageTakeHomeQuizTests;
 			sourceTree = "<group>";
@@ -518,6 +538,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3891DD02A3048E200EA74EC /* FontSelectorViewModelTests.swift in Sources */,
+				E3891DD72A30507300EA74EC /* FontSelectorViewMode+Mock.swift in Sources */,
+				E3891DD52A304ED400EA74EC /* FontItem+Mock.swift in Sources */,
+				E3891DD32A304E9900EA74EC /* FontManager+Mock.swift in Sources */,
 				E3FF257E2A284F96006F6CD0 /* PicCollageTakeHomeQuizTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

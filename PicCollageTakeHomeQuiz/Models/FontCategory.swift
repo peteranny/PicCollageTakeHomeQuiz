@@ -5,7 +5,7 @@
 //  Created by Peteranny on 2023/6/6.
 //
 
-enum FontCategory {
+enum FontCategory: Equatable {
     case all
     case specific(String)
 

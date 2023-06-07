@@ -78,7 +78,7 @@ class FontSelectorViewModel {
         )
     }
 
-    init(manager: FontManager, fontObserver: AnyObserver<String>) {
+    init(manager: FontManaging, fontObserver: AnyObserver<String>) {
         self.manager = manager
         self.fontObserver = fontObserver
 
@@ -103,7 +103,7 @@ class FontSelectorViewModel {
 
     // MARK: - Private
 
-    private let manager: FontManager
+    private let manager: FontManaging
     private let fontObserver: AnyObserver<String>
     private let modelsRelay = BehaviorRelay<[FontModel]>(value: [])
     private let selectedCategoryRelay = BehaviorRelay<FontCategory>(value: .all)
