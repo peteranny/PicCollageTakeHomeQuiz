@@ -12,17 +12,28 @@ import RxSwift
 extension FontManager {
     /// Create a mock instance with partial inputs as well as the rest being mocked
     static func mock(
-        fetchedItems: [FontItem] = []
+        fetchedItems: [FontItem] = [],
+        fetchedAtOnce: Bool = true
     ) -> MockFontManager {
-        .init(fetchedItems: fetchedItems)
+        let manager = MockFontManager(fetchedItems: fetchedItems)
+        if fetchedAtOnce {
+            manager.fetchDone()
+        }
+        return manager
     }
 }
 
 struct MockFontManager: FontManaging {
     let fetchedItems: [FontItem]
 
+    private let fetchedItemsDone = BehaviorRelay<Bool>(value: false)
+    func fetchDone() {
+        fetchedItemsDone.accept(true)
+    }
     func fetchItems() -> Single<[FontItem]> {
-        .just(fetchedItems)
+        // Pend the request until done
+        let trigger = fetchedItemsDone.filter { $0 }.take(1)
+        return trigger.map { _ in fetchedItems }.asSingle()
     }
 
     private let menuRelay = BehaviorRelay<String?>(value: nil)

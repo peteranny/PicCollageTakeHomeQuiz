@@ -12,6 +12,34 @@ import XCTest
 @testable import PicCollageTakeHomeQuiz
 
 class FontSelectorViewModelTests: XCTestCase {
+    /// Test if `outputs.isLoading` responds to the request
+    func test_isLoading() {
+        // Set up dependencies
+        let manager = FontManager.mock(fetchedAtOnce: false)
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let inputs = FontSelectorViewModel.Inputs.mock()
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let loadingObserver = ReplaySubject<Bool>.createUnbounded()
+        let disposeBag = DisposeBag()
+        disposeBag.insert(outputs.bindings)
+        disposeBag.insert(outputs.isLoading.drive(loadingObserver))
+
+        // Steps
+        manager.fetchDone()
+
+        // Verify the result
+        loadingObserver.onCompleted()
+        let isLoading = try! loadingObserver.toBlocking().toArray()
+        XCTAssertEqual(isLoading, [
+            true,
+            false,
+        ])
+    }
+
     /// Test if `outputs.categories` matches the fetched font items
     func test_categories() {
         // Set up dependencies
