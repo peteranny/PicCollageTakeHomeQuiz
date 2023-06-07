@@ -58,6 +58,8 @@ class FontSelectorViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        collectionView.backgroundView = spinner
+        spinner.hidesWhenStopped = true
     }
 
     private func installBindings() {
@@ -77,6 +79,11 @@ class FontSelectorViewController: UIViewController {
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
+        let bindLoading = outputs.isLoading
+            .drive(with: spinner, onNext: { base, isLoading in
+                isLoading ? base.startAnimating() : base.stopAnimating()
+            })
+
         let bindModels = outputs.models.drive(collectionView.rx.models)
 
         let bindSelectedCategory = outputs.selectedCategory
@@ -90,6 +97,7 @@ class FontSelectorViewController: UIViewController {
             .drive(segmentationControl.rx.items)
 
         disposeBag.insert(
+            bindLoading,
             bindModels,
             bindSelectedCategory,
             bindScrollToTop,
@@ -101,6 +109,7 @@ class FontSelectorViewController: UIViewController {
     private let segmentationControl = SegmentationControl()
     private let separator = SolidLineView(axis: .horizontal, thickness: 0.5, backgroundColor: .black)
     private let collectionView = FontCollectionView()
+    private let spinner = UIActivityIndicatorView()
     private let viewModel: FontSelectorViewModel
     private let disposeBag = DisposeBag()
 }
