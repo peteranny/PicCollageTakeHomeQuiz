@@ -11,10 +11,10 @@ import Foundation
 extension FontItem {
 
     /// Create a instance with partial inputs as well as the rest being mocked
-    static func mock(category: String = "") -> Self {
+    static func mock(family: String = "", category: String = "") -> Self {
         .init(
             kind: "",
-            family: "",
+            family: family,
             subsets: [],
             menu: URL(string: "file://")!,
             variants: [],
