@@ -8,7 +8,14 @@
 import RxCocoa
 import RxSwift
 
-class FontManager {
+protocol FontManaging {
+    func fetchItems() -> Single<[FontItem]>
+    func menuDriver(for item: FontItem) -> Driver<String?>
+    func fontStateDriver(for item: FontItem) -> Driver<FontState?>
+    func fetchFont(for item: FontItem) -> Single<String>
+}
+
+class FontManager: FontManaging {
     // MARK: Font items
 
     /// Fetch the font items
