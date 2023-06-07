@@ -34,8 +34,14 @@ struct MockFontManager: FontManaging {
             .filter { $0?.starts(with: item.family) ?? true } // Nil applies to all items
     }
 
+    private let fontStateRelay = BehaviorRelay<String?>(value: nil)
+    func pushFontState(for item: FontItem) {
+        fontStateRelay.accept(item.family)
+    }
     func fontStateDriver(for item: FontItem) -> Driver<FontState?> {
-        .just(nil)
+        fontStateRelay.asDriver()
+            .filter { $0?.starts(with: item.family) ?? true } // Nil applies to all items
+            .map { $0 != nil ? .downloaded(name: item.family + "-downloaded") : nil } // Maps non-nil to .downloaded
     }
 
     func fetchFont(for item: FontItem) -> Single<String> {

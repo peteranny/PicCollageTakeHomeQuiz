@@ -216,6 +216,37 @@ class FontSelectorViewModelTests: XCTestCase {
         ])
     }
 
+    /// Test if `model.state` drives the value subject to push events
+    func test_modelFontState() {
+        // Set up dependencies
+        let item = FontItem.mock(family: "1")
+        let manager = FontManager.mock(fetchedItems: [item])
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let inputs = FontSelectorViewModel.Inputs.mock()
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let downloadedObserver = ReplaySubject<Bool?>.createUnbounded()
+        let disposeBag = DisposeBag()
+        disposeBag.insert(outputs.bindings)
+
+        let model = getModels(from: outputs, disposedBy: disposeBag)[0]
+        disposeBag.insert(model.state.map(\.?.isDownloaded).drive(downloadedObserver))
+
+        // Steps
+        manager.pushFontState(for: item)
+
+        // Verify the result
+        downloadedObserver.onCompleted()
+        let downloaded = try! downloadedObserver.toBlocking().toArray()
+        XCTAssertEqual(downloaded, [
+            nil,
+            true,
+        ])
+    }
+
     // MARK: - Private
 
     private func getModels(from outputs: FontSelectorViewModel.Outputs, disposedBy disposeBag: DisposeBag) -> [FontModel] {
