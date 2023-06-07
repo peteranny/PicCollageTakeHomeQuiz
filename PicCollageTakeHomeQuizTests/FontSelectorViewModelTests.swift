@@ -78,4 +78,41 @@ class FontSelectorViewModelTests: XCTestCase {
             .all,
         ])
     }
+
+    /// Test if `outputs.models` emits the models that match the selected category
+    func test_models() {
+        // Set up dependencies
+        let items: [FontItem] = [
+            FontItem.mock(family: "1", category: "a"),
+            FontItem.mock(family: "2", category: "b"),
+        ]
+        let manager = FontManager.mock(fetchedItems: items)
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let selectedCategory = PublishSubject<FontCategory>()
+        let inputs = FontSelectorViewModel.Inputs.mock(
+            selectedCategory: selectedCategory.asObservable()
+        )
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let familiesObserver = ReplaySubject<[String]>.createUnbounded()
+        let disposeBag = DisposeBag()
+        disposeBag.insert(outputs.bindings)
+        disposeBag.insert(outputs.models.map({ $0.map(\.item.family) }).drive(familiesObserver))
+
+        // Steps
+        selectedCategory.onNext(.specific("a"))
+        selectedCategory.onNext(.all)
+
+        // Verify the result
+        familiesObserver.onCompleted()
+        let families = try! familiesObserver.toBlocking().toArray()
+        XCTAssertEqual(families, [
+            ["1", "2"],
+            ["1"],
+            ["1", "2"],
+        ])
+    }
 }
