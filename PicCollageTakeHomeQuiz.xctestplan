@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "ED947DCC-8340-4980-B429-4DEB60BC0D97",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:PicCollageTakeHomeQuiz.xcodeproj",
+      "identifier" : "E3FF25622A284F95006F6CD0",
+      "name" : "PicCollageTakeHomeQuiz"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:PicCollageTakeHomeQuiz.xcodeproj",
+        "identifier" : "E3FF25782A284F96006F6CD0",
+        "name" : "PicCollageTakeHomeQuizTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:PicCollageTakeHomeQuiz.xcodeproj",
+        "identifier" : "E3FF25822A284F96006F6CD0",
+        "name" : "PicCollageTakeHomeQuizUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
