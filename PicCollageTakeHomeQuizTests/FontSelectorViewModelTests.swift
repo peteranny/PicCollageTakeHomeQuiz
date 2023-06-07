@@ -115,4 +115,53 @@ class FontSelectorViewModelTests: XCTestCase {
             ["1", "2"],
         ])
     }
+
+    /// Test if `outputs.models` emits the models selected by the inputs
+    func test_selectedModel() {
+        // Set up dependencies
+        let items: [FontItem] = [
+            FontItem.mock(family: "1"),
+            FontItem.mock(family: "2"),
+        ]
+        let manager = FontManager.mock(fetchedItems: items)
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let selectedModel = PublishSubject<FontModel>()
+        let inputs = FontSelectorViewModel.Inputs.mock(
+            selectedModel: selectedModel.asObservable()
+        )
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let selectedObserver = ReplaySubject<[Bool]>.createUnbounded()
+        let disposeBag = DisposeBag()
+        disposeBag.insert(outputs.bindings)
+        disposeBag.insert(outputs.models.map({ $0.map(\.selected) }).drive(selectedObserver))
+
+        // Steps
+        let models = getModels(from: outputs, disposedBy: disposeBag)
+        selectedModel.onNext(models[0])
+        selectedModel.onNext(models[1])
+
+        // Verify the result
+        selectedObserver.onCompleted()
+        let selected = try! selectedObserver.toBlocking().toArray()
+        XCTAssertEqual(selected, [
+            [false, false],
+            [true, false],
+            [false, true],
+        ])
+    }
+
+    // MARK: - Private
+
+    private func getModels(from outputs: FontSelectorViewModel.Outputs, disposedBy disposeBag: DisposeBag) -> [FontModel] {
+        // Get models
+        let modelsObserver = ReplaySubject<[FontModel]>.createUnbounded()
+        disposeBag.insert(outputs.models.drive(modelsObserver))
+        modelsObserver.onCompleted()
+        let models = try! modelsObserver.toBlocking().last()!
+        return models
+    }
 }
