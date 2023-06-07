@@ -11,17 +11,28 @@ import Combine
 extension FontManager {
     /// Create a mock instance with partial inputs as well as the rest being mocked
     static func mock(
-        fetchedItems: [FontItem] = []
+        fetchedItems: [FontItem] = [],
+        fetchedAtOnce: Bool = true
     ) -> MockFontManager {
-        .init(fetchedItems: fetchedItems)
+        let manager = MockFontManager(fetchedItems: fetchedItems)
+        if fetchedAtOnce {
+            manager.fetchDone()
+        }
+        return manager
     }
 }
 
 struct MockFontManager: FontManaging {
     let fetchedItems: [FontItem]
 
+    private let fetchedItemsDone = CurrentValueSubject<Bool, Never>(false)
+    func fetchDone() {
+        fetchedItemsDone.send(true)
+    }
     func fetchItems() async throws -> [FontItem] {
-        fetchedItems
+        // Pend the request until done
+        let trigger = fetchedItemsDone.filter { $0 }.first()
+        return await trigger.map { _ in fetchedItems }.asFuture().value
     }
 
     private let menuRelay = CurrentValueSubject<String?, Never>(nil)
