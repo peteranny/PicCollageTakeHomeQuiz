@@ -126,4 +126,60 @@ class FontSelectorViewModelTests: XCTestCase {
             (200, .input(["1", "2"])),
         ])
     }
+
+    /// Test if `outputs.models` emits the models selected by the inputs
+    func test_selectedModel() {
+        // Set up dependencies
+        let items: [FontItem] = [
+            FontItem.mock(family: "1"),
+            FontItem.mock(family: "2"),
+        ]
+        let manager = FontManager.mock(fetchedItems: items)
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let selectedModel = PassthroughSubject<FontModel, Never>()
+        let inputs = FontSelectorViewModel.Inputs.mock(
+            selectedModel: selectedModel.eraseToAnyPublisher()
+        )
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let selectedObserver = ReplaySubject<[Bool], Never>.createUnbounded()
+        var cancellables: [AnyCancellable] = []
+        cancellables.append(contentsOf: outputs.bindings)
+        cancellables.append(outputs.models.map({ $0.map(\.selected) }).sink { selectedObserver.send($0) })
+
+        // Start steps
+        let scheduler = TestScheduler(initialClock: .zero)
+        let results = scheduler.start {
+            let models = self.getModels(from: outputs, cancellables: &cancellables)
+            selectedModel.send(models[0])
+            selectedModel.send(models[1])
+            return selectedObserver
+        }
+
+        // Verify the result
+        XCTAssertEqual(results.recordedOutput, [
+            (200, .subscription),
+            (200, .input([false, false])),
+            (200, .input([true, false])),
+            (200, .input([false, true])),
+        ])
+    }
+
+    // MARK: - Private
+
+    private func getModels(from outputs: FontSelectorViewModel.Outputs, cancellables: inout [AnyCancellable]) -> [FontModel] {
+        // Get models
+        let modelsObserver = ReplaySubject<[FontModel], Never>.createUnbounded()
+        cancellables.append(outputs.models.sink { modelsObserver.send($0) })
+        let scheduler = TestScheduler(initialClock: .zero)
+        let results = scheduler.start { modelsObserver }
+        let signal = results.recordedOutput.suffix(1).first!.1
+        guard case .input(let models) = signal else {
+            fatalError()
+        }
+        return models
+    }
 }
