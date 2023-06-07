@@ -185,6 +185,37 @@ class FontSelectorViewModelTests: XCTestCase {
         ])
     }
 
+    /// Test if `model.menuFont` drives the value subject to push events
+    func test_modelMenuFont() {
+        // Set up dependencies
+        let item = FontItem.mock(family: "1")
+        let manager = FontManager.mock(fetchedItems: [item])
+        let viewModel = FontSelectorViewModel.mock(manager: manager)
+
+        // Set up inputs / outputs
+        let inputs = FontSelectorViewModel.Inputs.mock()
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let menuFontObserver = ReplaySubject<String?>.createUnbounded()
+        let disposeBag = DisposeBag()
+        disposeBag.insert(outputs.bindings)
+
+        let model = getModels(from: outputs, disposedBy: disposeBag)[0]
+        disposeBag.insert(model.menu.drive(menuFontObserver))
+
+        // Steps
+        manager.pushMenu(for: item)
+
+        // Verify the result
+        menuFontObserver.onCompleted()
+        let menuFont = try! menuFontObserver.toBlocking().toArray()
+        XCTAssertEqual(menuFont, [
+            nil,
+            "1-menuFont",
+        ])
+    }
+
     // MARK: - Private
 
     private func getModels(from outputs: FontSelectorViewModel.Outputs, disposedBy disposeBag: DisposeBag) -> [FontModel] {
