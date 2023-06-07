@@ -154,6 +154,37 @@ class FontSelectorViewModelTests: XCTestCase {
         ])
     }
 
+    /// Test if `fontObserver` emits the font for the selected and downloaded font
+    func test_fontObserver() {
+        // Set up dependencies
+        let item = FontItem.mock(family: "1")
+        let manager = FontManager.mock(fetchedItems: [item])
+        let fontObserver = ReplaySubject<String>.createUnbounded()
+        let viewModel = FontSelectorViewModel.mock(manager: manager, fontObserver: fontObserver.asObserver())
+
+        // Set up inputs / outputs
+        let selectedModel = PublishSubject<FontModel>()
+        let inputs = FontSelectorViewModel.Inputs.mock(
+            selectedModel: selectedModel.asObservable()
+        )
+        let outputs = viewModel.bind(inputs)
+
+        // Bind observers
+        let disposeBag = DisposeBag()
+        disposeBag.insert(outputs.bindings)
+
+        // Steps
+        let model = getModels(from: outputs, disposedBy: disposeBag)[0]
+        selectedModel.onNext(model)
+
+        // Verify the result
+        fontObserver.onCompleted()
+        let font = try! fontObserver.toBlocking().toArray()
+        XCTAssertEqual(font, [
+            "1-font",
+        ])
+    }
+
     // MARK: - Private
 
     private func getModels(from outputs: FontSelectorViewModel.Outputs, disposedBy disposeBag: DisposeBag) -> [FontModel] {
