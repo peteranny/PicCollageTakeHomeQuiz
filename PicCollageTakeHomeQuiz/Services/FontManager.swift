@@ -17,7 +17,7 @@ class FontManager {
         let url = URL(string: "https://www.googleapis.com/webfonts/v1/webfonts?key=\(Constants.key)")!
 
         let data: Data
-        if let cached = FontStorage.request() {
+        if let cached = FontStorage.request(ttl: Constants.requestTTL) {
             data = cached
         } else {
             let request = URLRequest(url: url)
@@ -37,5 +37,7 @@ class FontManager {
             let decoded = String(data: data, encoding: .utf8)!
             return decoded
         }()
+
+        static let requestTTL = 60.0
     }
 }
