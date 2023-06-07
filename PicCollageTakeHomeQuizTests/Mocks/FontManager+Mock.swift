@@ -34,8 +34,15 @@ struct MockFontManager: FontManaging {
             .eraseToAnyPublisher()
     }
 
+    private let fontStateRelay = CurrentValueSubject<String?, Never>(nil)
+    func pushFontState(for item: FontItem) {
+        fontStateRelay.send(item.family)
+    }
     func fontStateDriver(for item: FontItem) -> AnyPublisher<FontState?, Never> {
-        Just(nil).eraseToAnyPublisher()
+        fontStateRelay
+            .filter { $0?.starts(with: item.family) ?? true } // Nil applies to all items
+            .map { $0 != nil ? .downloaded(name: item.family + "-downloaded") : nil } // Maps non-nil to .downloaded
+            .eraseToAnyPublisher()
     }
 
     func fetchFont(for item: FontItem) async throws -> String {
