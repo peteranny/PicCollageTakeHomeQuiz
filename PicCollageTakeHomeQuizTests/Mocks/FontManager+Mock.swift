@@ -25,8 +25,13 @@ struct MockFontManager: FontManaging {
         .just(fetchedItems)
     }
 
+    private let menuRelay = BehaviorRelay<String?>(value: nil)
+    func pushMenu(for item: FontItem) {
+        menuRelay.accept(item.family + "-menuFont")
+    }
     func menuDriver(for item: FontItem) -> Driver<String?> {
-        .just(nil)
+        menuRelay.asDriver()
+            .filter { $0?.starts(with: item.family) ?? true } // Nil applies to all items
     }
 
     func fontStateDriver(for item: FontItem) -> Driver<FontState?> {
