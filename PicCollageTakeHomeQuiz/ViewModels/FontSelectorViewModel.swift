@@ -18,6 +18,9 @@ class FontSelectorViewModel {
     }
 
     struct Outputs {
+        // Indicates if the request is ongoing
+        let isLoading: Driver<Bool>
+
         // The list of selectable categories
         let categories: Driver<[FontCategory]>
 
@@ -67,6 +70,7 @@ class FontSelectorViewModel {
 
         // Return the outputs
         return Outputs(
+            isLoading: isLoadingRelay.asDriver(),
             categories: categories,
             selectedCategory: selectedCategoryRelay.asDriver(),
             models: models,
@@ -97,6 +101,11 @@ class FontSelectorViewModel {
                 }
             }
             .asObservable()
+            .do(onSubscribe: { [isLoadingRelay] in
+                isLoadingRelay.accept(true)
+            }, onDispose: { [isLoadingRelay] in
+                isLoadingRelay.accept(false)
+            })
             .bind(to: modelsRelay)
             .disposed(by: disposeBag)
     }
@@ -105,6 +114,7 @@ class FontSelectorViewModel {
 
     private let manager: FontManaging
     private let fontObserver: AnyObserver<String>
+    private let isLoadingRelay = BehaviorRelay<Bool>(value: false)
     private let modelsRelay = BehaviorRelay<[FontModel]>(value: [])
     private let selectedCategoryRelay = BehaviorRelay<FontCategory>(value: .all)
     private let selectedModelRelay = BehaviorRelay<FontModel?>(value: nil)
