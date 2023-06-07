@@ -15,9 +15,17 @@ class FontManager {
     func fetchItems() -> Single<[FontItem]> {
         // Reference: https://developers.google.com/fonts/docs/developer_api
         let url = URL(string: "https://www.googleapis.com/webfonts/v1/webfonts?key=\(Constants.key)")!
-        let request = URLRequest(url: url)
-        return URLSession.shared.rx
-            .data(request: request)
+
+        let response: Observable<Data>
+        if let data = FontStorage.request() {
+            response = .just(data)
+        } else {
+            let request = URLRequest(url: url)
+            response = URLSession.shared.rx.data(request: request)
+                .do(onNext: { FontStorage.setRequest($0) })
+        }
+
+        return response
             .map { try JSONDecoder().decode(FontResponse.self, from: $0) }
             .map(\.items)
             .asSingle()
