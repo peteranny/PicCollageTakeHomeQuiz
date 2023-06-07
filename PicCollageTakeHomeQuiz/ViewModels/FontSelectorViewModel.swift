@@ -18,6 +18,9 @@ class FontSelectorViewModel {
     }
 
     struct Outputs {
+        // Indicates if the request is ongoing
+        let isLoading: AnyPublisher<Bool, Never>
+
         // The list of selectable categories
         let categories: AnyPublisher<[FontCategory], Never>
 
@@ -69,6 +72,7 @@ class FontSelectorViewModel {
 
         // Return the outputs
         return Outputs(
+            isLoading: isLoadingRelay.eraseToAnyPublisher(),
             categories: categories,
             selectedCategory: selectedCategoryRelay.eraseToAnyPublisher(),
             models: models,
@@ -97,6 +101,11 @@ class FontSelectorViewModel {
                     )
                 }
             }
+            .handleEvents(receiveSubscription: { [isLoadingRelay] _ in
+                isLoadingRelay.send(true)
+            }, receiveCompletion: { [isLoadingRelay] _ in
+                isLoadingRelay.send(false)
+            })
             .sink { _ in } receiveValue: { [modelsRelay] in modelsRelay.send($0) }
             .store(in: &cancellables)
     }
@@ -105,6 +114,7 @@ class FontSelectorViewModel {
 
     private let manager: FontManaging
     private let fontObserver: AnySubscriber<String, Never>
+    private let isLoadingRelay = CurrentValueSubject<Bool, Never>(false)
     private let modelsRelay = CurrentValueSubject<[FontModel], Never>([])
     private let selectedCategoryRelay = CurrentValueSubject<FontCategory, Never>(.all)
     private let selectedModelRelay = CurrentValueSubject<FontModel?, Never>(nil)

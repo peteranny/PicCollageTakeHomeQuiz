@@ -60,6 +60,8 @@ class FontSelectorViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        collectionView.backgroundView = spinner
+        spinner.hidesWhenStopped = true
     }
 
     private func installBindings() {
@@ -85,6 +87,12 @@ class FontSelectorViewController: UIViewController {
         let outputs = viewModel.bind(inputs)
 
         // Binds the outputs
+        let bindLoading = outputs.isLoading
+            .receive(on: DispatchQueue.main)
+            .sink { [base = spinner] isLoading in
+                isLoading ? base.startAnimating() : base.stopAnimating()
+            }
+
         let bindModels = outputs.models.sink { models.send($0) }
         let bindCollection = models.receive(on: DispatchQueue.main).bind(subscriber: collectionView.subscriber)
 
@@ -101,6 +109,7 @@ class FontSelectorViewController: UIViewController {
             .assign(to: \.items, on: segmentationControl)
 
         cancellables.append(contentsOf: [
+            bindLoading,
             bindModels,
             bindCollection,
             bindSelectedCategory,
@@ -112,6 +121,7 @@ class FontSelectorViewController: UIViewController {
     private let segmentationControl = SegmentationControl()
     private let separator = SolidLineView(axis: .horizontal, thickness: 0.5, backgroundColor: .black)
     private let collectionView = FontCollectionView()
+    private let spinner = UIActivityIndicatorView()
     private let viewModel: FontSelectorViewModel
     private var cancellables: [AnyCancellable] = []
 }
