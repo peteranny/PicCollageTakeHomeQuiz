@@ -33,6 +33,6 @@ struct MockFontManager: FontManaging {
     }
 
     func fetchFont(for item: FontItem) async throws -> String {
-        ""
+        item.family + "-font"
     }
 }

@@ -10,8 +10,8 @@ import Combine
 
 extension FontSelectorViewModel {
     /// Create a instance with partial inputs as well as the rest being mocked
-    static func mock(manager: MockFontManager) -> FontSelectorViewModel {
-        .init(manager: manager, fontObserver: AnySubscriber())
+    static func mock(manager: MockFontManager, fontObserver: AnySubscriber<String, Never> = AnySubscriber()) -> FontSelectorViewModel {
+        .init(manager: manager, fontObserver: fontObserver)
     }
 }
 
