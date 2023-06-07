@@ -41,6 +41,7 @@ class ViewController: UIViewController {
             textViewButtonConstraint,
         ])
         textView.font = .systemFont(ofSize: 20)
+        textView.backgroundColor = .clear
 
         // Install the font button
         view.addSubview(fontButton)
@@ -52,6 +53,17 @@ class ViewController: UIViewController {
             fontButton.widthAnchor.constraint(equalToConstant: 30),
             fontButton.heightAnchor.constraint(equalToConstant: 30),
         ])
+
+        view.addSubview(backgroundView)
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+        ])
+        backgroundView.image = .init(named: "background")
+        backgroundView.contentMode = .bottom
     }
 
     private func installBindings() {
@@ -146,6 +158,7 @@ class ViewController: UIViewController {
 
     private let manager: FontManager
     private let textView = TextView(placeholder: "Enter some text here")
+    private let backgroundView = UIImageView()
     private let fontButton = FontButton()
     private var fontSelector: UIViewController?
     private let disposeBag = DisposeBag()
