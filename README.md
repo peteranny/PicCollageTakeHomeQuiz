@@ -6,3 +6,5 @@ pod install
 ```
 
 And you can open `PicCollageTakeHomeQuiz.xcworkspace` with your Xcode to build and run.
+
+![](README.gif)
