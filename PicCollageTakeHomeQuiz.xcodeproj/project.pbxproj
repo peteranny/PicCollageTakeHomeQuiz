@@ -8,14 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7212F3142A81F2E100FA9718 /* Combine+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7212F3132A81F2E100FA9718 /* Combine+Future.swift */; };
+		721C3C762A83A5240013F9F5 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 721C3C752A83A5240013F9F5 /* CombineDataSources */; };
+		721C3C782A83A5240013F9F5 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 721C3C772A83A5240013F9F5 /* CombineCocoa */; };
 		7265BA172A84B67F003D91C7 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA162A84B67F003D91C7 /* CombineCocoa */; };
 		7265BA1A2A84B68B003D91C7 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA192A84B68B003D91C7 /* CombineDataSources */; };
 		7265BA1D2A84B699003D91C7 /* Entwine in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA1C2A84B699003D91C7 /* Entwine */; };
 		7265BA1F2A84B699003D91C7 /* EntwineTest in Frameworks */ = {isa = PBXBuildFile; productRef = 7265BA1E2A84B699003D91C7 /* EntwineTest */; };
-		7212F3142A81F2E100FA9718 /* Combine+Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7212F3132A81F2E100FA9718 /* Combine+Future.swift */; };
-		7212F31F2A83714B00FA9718 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 7212F31E2A83714B00FA9718 /* CombineCocoa */; };
-		721C3C762A83A5240013F9F5 /* CombineDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 721C3C752A83A5240013F9F5 /* CombineDataSources */; };
-		721C3C782A83A5240013F9F5 /* CombineCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 721C3C772A83A5240013F9F5 /* CombineCocoa */; };
 		E305813F2A29AACA00C61B99 /* SegmentationControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E305813E2A29AACA00C61B99 /* SegmentationControl.swift */; };
 		E30581412A29AE1300C61B99 /* FontCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581402A29AE1300C61B99 /* FontCollectionView.swift */; };
 		E30581432A29B16D00C61B99 /* SolidLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E30581422A29B16D00C61B99 /* SolidLineView.swift */; };
@@ -778,6 +776,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		721C3C752A83A5240013F9F5 /* CombineDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CombineDataSources;
+		};
+		721C3C772A83A5240013F9F5 /* CombineCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CombineCocoa;
+		};
 		7265BA162A84B67F003D91C7 /* CombineCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7265BA152A84B67F003D91C7 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
@@ -796,26 +802,6 @@
 		7265BA1E2A84B699003D91C7 /* EntwineTest */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7265BA1B2A84B699003D91C7 /* XCRemoteSwiftPackageReference "Entwine" */;
-			productName = EntwineTest;
-		};
-		721C3C752A83A5240013F9F5 /* CombineDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7212F30C2A81DEE000FA9718 /* XCRemoteSwiftPackageReference "CombineDataSources" */;
-			productName = CombineDataSources;
-		};
-		721C3C772A83A5240013F9F5 /* CombineCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 7212F31D2A83714B00FA9718 /* XCRemoteSwiftPackageReference "CombineCocoa" */;
-			productName = CombineCocoa;
-		};
-		729136322A83A36F00C0E72B /* Entwine */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 729136312A83A36F00C0E72B /* XCRemoteSwiftPackageReference "Entwine" */;
-			productName = Entwine;
-		};
-		729136342A83A36F00C0E72B /* EntwineTest */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 729136312A83A36F00C0E72B /* XCRemoteSwiftPackageReference "Entwine" */;
 			productName = EntwineTest;
 		};
 /* End XCSwiftPackageProductDependency section */
